@@ -1,14 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DARANG</title>
-    </head>
-    <body>
-        <h1>Welcome to the DARANG</h1>
-        <p>
-            A platform where stuents, faculties, industries and instituitons connect to build a better future.
-        </p>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DARANG - Connecting students, academia and industry through skills, opportunities and collaboration.">
+    <title>DARANG — From Potential to Opportunity</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="cursor-glow"></div>
+
+    <header class="navbar" id="navbar">
+        <a href="/" class="brand">
+            <span class="brand-mark">D</span>
+            <span>DARANG</span>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#how">How it works</a>
+            <a href="#ecosystem">Ecosystem</a>
+            <a href="#impact">Impact</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="#" class="login-link">Log in</a>
+            <a href="#" class="nav-cta">Get Started <span>↗</span></a>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-orb orb-one"></div>
+            <div class="hero-orb orb-two"></div>
+            <div class="grid-lines"></div>
+
+            <div class="hero-content">
+                <div class="eyebrow reveal">
+                    <span class="pulse-dot"></span>
+                    THE ACADEMIA × INDUSTRY NETWORK
+                </div>
+
+                <h1 class="reveal">
+                    Turn your <span class="gradient-text">potential</span><br>
+                    into <span class="outline-text">opportunity.</span>
+                </h1>
+
+                <p class="hero-copy reveal">
+                    DARANG connects <strong>students, academicians, institutions and industry</strong>
+                    through skills, internships, learning and real-world collaboration.
+                </p>
+
+                <div class="hero-buttons reveal">
+                    <a href="#" class="primary-btn">
+                        Explore DARANG
+                        <span class="arrow-circle">↗</span>
+                    </a>
+                    <a href="#how" class="secondary-btn">
+                        See how it works
+                        <span>↓</span>
+                    </a>
+                </div>
+
+                <div class="hero-trust reveal">
+                    <div class="trust-avatars">
+                        <span>ST</span><span>IN</span><span>AC</span><span>+</span>
+                    </div>
+                    <div>
+                        <strong>One connected ecosystem</strong>
+                        <small>Skills → Learning → Opportunities</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating dashboard visual -->
+            <div class="hero-visual reveal">
+                <div class="visual-glow"></div>
+                <div class="dashboard-card">
+                    <div class="card-top">
+                        <div>
+                            <span class="mini-label">STUDENT PROFILE</span>
+                            <h3>Career Readiness</h3>
+                        </div>
+                        <span class="verified">✓ VERIFIED</span>
+                    </div>
+
+                    <div class="score-row">
+                        <div class="score-ring">
+                            <div>
+                                <strong id="score">78</strong>
+                                <small>%</small>
+                            </div>
+                        </div>
+                        <div class="score-info">
+                            <strong>Industry Ready</strong>
+                            <span>↑ 12% this month</span>
+                            <small>Your profile is stronger than 74% of students in your track.</small>
+                        </div>
+                    </div>
+
+                    <div class="skill-list">
+                        <div class="skill">
+                            <div><span>Python</span><b>92%</b></div>
+                            <i><em style="width:92%"></em></i>
+                        </div>
+                        <div class="skill">
+                            <div><span>Communication</span><b>84%</b></div>
+                            <i><em style="width:84%"></em></i>
+                        </div>
+                        <div class="skill">
+                            <div><span>Data Analysis</span><b>71%</b></div>
+                            <i><em style="width:71%"></em></i>
+                        </div>
+                    </div>
+
+                    <div class="match-card">
+                        <div class="match-icon">✦</div>
+                        <div>
+                            <small>RECOMMENDED FOR YOU</small>
+                            <strong>Data Analyst Intern</strong>
+                        </div>
+                        <span>94%</span>
+                    </div>
+                </div>
+
+                <div class="floating-tag tag-one">
+                    <span>✦</span> AI Skill Mapping
+                </div>
+                <div class="floating-tag tag-two">
+                    <span>↗</span> 2,480 Opportunities
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <div class="marquee">
+            <div class="marquee-track">
+                <span>SKILL MAPPING</span><b>✦</b>
+                <span>INTERNSHIPS</span><b>✦</b>
+                <span>PLACEMENTS</span><b>✦</b>
+                <span>MENTORSHIP</span><b>✦</b>
+                <span>INDUSTRY PROJECTS</span><b>✦</b>
+                <span>SKILL MAPPING</span><b>✦</b>
+                <span>INTERNSHIPS</span><b>✦</b>
+                <span>PLACEMENTS</span><b>✦</b>
+                <span>MENTORSHIP</span><b>✦</b>
+                <span>INDUSTRY PROJECTS</span><b>✦</b>
+            </div>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <section class="section how-section" id="how">
+            <div class="section-heading reveal">
+                <div>
+                    <span class="section-kicker">HOW DARANG WORKS</span>
+                    <h2>From <span>learning</span><br>to <span>launching.</span></h2>
+                </div>
+                <p>One platform. A complete journey. DARANG helps you understand where you stand, what the industry needs and what to do next.</p>
+            </div>
+
+            <div class="steps">
+                <article class="step-card reveal">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">◎</div>
+                    <h3>Assess</h3>
+                    <p>Evaluate your technical, aptitude and soft skills through intelligent assessments.</p>
+                    <span class="step-link">Know yourself <b>↗</b></span>
+                </article>
+
+                <article class="step-card featured reveal">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">⌁</div>
+                    <h3>Map</h3>
+                    <p>Discover your skill gaps against real industry requirements and career roles.</p>
+                    <span class="step-link">Find your gaps <b>↗</b></span>
+                </article>
+
+                <article class="step-card reveal">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">↗</div>
+                    <h3>Grow</h3>
+                    <p>Follow a personalized roadmap with courses, certifications, projects and mentorship.</p>
+                    <span class="step-link">Build your edge <b>↗</b></span>
+                </article>
+
+                <article class="step-card reveal">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">✦</div>
+                    <h3>Connect</h3>
+                    <p>Match with internships, jobs and live industry opportunities based on your profile.</p>
+                    <span class="step-link">Meet opportunity <b>↗</b></span>
+                </article>
+            </div>
+        </section>
+
+        <!-- ECOSYSTEM -->
+        <section class="section ecosystem-section" id="ecosystem">
+            <div class="ecosystem-copy reveal">
+                <span class="section-kicker">ONE ECOSYSTEM</span>
+                <h2>Four sides.<br><span>One future.</span></h2>
+                <p>DARANG brings every stakeholder into one connected space — replacing fragmented processes with meaningful collaboration.</p>
+                <a href="#" class="text-link">Explore the ecosystem <span>→</span></a>
+            </div>
+
+            <div class="ecosystem-map reveal">
+                <div class="map-ring ring-large"></div>
+                <div class="map-ring ring-small"></div>
+                <div class="map-center">
+                    <span>D</span>
+                    <small>DARANG</small>
+                </div>
+
+                <div class="ecosystem-node node-student">
+                    <span>ST</span>
+                    <div><strong>Students</strong><small>Skills & Careers</small></div>
+                </div>
+                <div class="ecosystem-node node-industry">
+                    <span>IN</span>
+                    <div><strong>Industry</strong><small>Talent & Innovation</small></div>
+                </div>
+                <div class="ecosystem-node node-academia">
+                    <span>AC</span>
+                    <div><strong>Academia</strong><small>Learning & Research</small></div>
+                </div>
+                <div class="ecosystem-node node-institution">
+                    <span>ED</span>
+                    <div><strong>Institutions</strong><small>Insight & Growth</small></div>
+                </div>
+
+                <div class="connection connection-1"></div>
+                <div class="connection connection-2"></div>
+                <div class="connection connection-3"></div>
+                <div class="connection connection-4"></div>
+            </div>
+        </section>
+
+        <!-- IMPACT -->
+        <section class="section impact-section" id="impact">
+            <div class="impact-header reveal">
+                <span class="section-kicker">THE BIGGER PICTURE</span>
+                <h2>Make the gap<br><span>disappear.</span></h2>
+            </div>
+
+            <div class="impact-grid">
+                <div class="impact-card reveal">
+                    <span class="impact-icon">⌁</span>
+                    <strong class="counter" data-target="92">0</strong><em>%</em>
+                    <h3>Skill visibility</h3>
+                    <p>Turn scattered abilities into a clear, verified profile.</p>
+                </div>
+                <div class="impact-card reveal">
+                    <span class="impact-icon">↗</span>
+                    <strong class="counter" data-target="78">0</strong><em>%</em>
+                    <h3>Better matching</h3>
+                    <p>Connect candidates with opportunities that actually fit.</p>
+                </div>
+                <div class="impact-card reveal">
+                    <span class="impact-icon">✦</span>
+                    <strong class="counter" data-target="4">0</strong><em>×</em>
+                    <h3>Connected stakeholders</h3>
+                    <p>Students, academia, institutions and industry in one ecosystem.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="final-cta reveal">
+            <div class="cta-grid"></div>
+            <div class="cta-content">
+                <span class="section-kicker">YOUR NEXT MOVE STARTS HERE</span>
+                <h2>Don't just prepare<br><span>for the future.</span><br>Build it.</h2>
+                <a href="#" class="primary-btn">
+                    Enter DARANG
+                    <span class="arrow-circle">↗</span>
+                </a>
+            </div>
+            <div class="cta-orb"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <span class="brand-mark">D</span>
+            <strong>DARANG</strong>
+        </div>
+        <p>Connecting potential with opportunity.</p>
+        <span>© 2026 DARANG</span>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
 </html>
