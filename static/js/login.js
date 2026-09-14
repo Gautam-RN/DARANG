@@ -114,16 +114,16 @@ loginForm.addEventListener("submit", (event) => {
     const dashboards = {
 
         student:
-            "/student/dashboard",
+            "/student",
 
         industry:
-            "/industry/dashboard",
+            "/industry",
 
         academician:
-            "/academician/dashboard",
+            "/academician",
 
         institution:
-            "/institution/dashboard"
+            "/institution"
     };
 
 
