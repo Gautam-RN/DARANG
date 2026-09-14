@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | EduSathi</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="grid"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <a href="/" class="brand">
+            <span class="brand-icon">E</span>
+            <span>EduSathi</span>
+        </a>
+
+        <a href="/" class="back-home">
+            ← Back to home
+        </a>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="login-container">
+
+        <!-- Left side -->
+        <section class="intro">
+
+            <div class="eyebrow">
+                <span></span>
+                WELCOME TO EDUSATHI
+            </div>
+
+            <h1>
+                Your journey<br>
+                starts <span>here.</span>
+            </h1>
+
+            <p>
+                Connect your skills with opportunities.
+                Learn what matters, build your profile,
+                and step confidently into the industry.
+            </p>
+
+            <div class="journey">
+
+                <div class="journey-item active">
+                    <div class="journey-icon">01</div>
+                    <div>
+                        <strong>Discover</strong>
+                        <small>Understand your skills</small>
+                    </div>
+                </div>
+
+                <div class="journey-line"></div>
+
+                <div class="journey-item">
+                    <div class="journey-icon">02</div>
+                    <div>
+                        <strong>Develop</strong>
+                        <small>Build industry-ready skills</small>
+                    </div>
+                </div>
+
+                <div class="journey-line"></div>
+
+                <div class="journey-item">
+                    <div class="journey-icon">03</div>
+                    <div>
+                        <strong>Connect</strong>
+                        <small>Meet the right opportunities</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Login card -->
+        <section class="login-card">
+
+            <div class="card-heading">
+                <span class="mini-label">SIGN IN</span>
+
+                <h2>Welcome back.</h2>
+
+                <p>
+                    Select your role to continue to EduSathi.
+                </p>
+            </div>
+
+
+            <!-- Role selection -->
+            <div class="role-section">
+
+                <label>CONTINUE AS</label>
+
+                <div class="roles">
+
+                    <button class="role active"
+                            data-role="student">
+
+                        <span class="role-icon">ST</span>
+
+                        <span class="role-info">
+                            <strong>Student</strong>
+                            <small>Learn & grow</small>
+                        </span>
+
+                        <span class="check">✓</span>
+
+                    </button>
+
+
+                    <button class="role"
+                            data-role="industry">
+
+                        <span class="role-icon">IN</span>
+
+                        <span class="role-info">
+                            <strong>Industry</strong>
+                            <small>Find talent</small>
+                        </span>
+
+                        <span class="check">✓</span>
+
+                    </button>
+
+
+                    <button class="role"
+                            data-role="academician">
+
+                        <span class="role-icon">AC</span>
+
+                        <span class="role-info">
+                            <strong>Academician</strong>
+                            <small>Teach & collaborate</small>
+                        </span>
+
+                        <span class="check">✓</span>
+
+                    </button>
+
+
+                    <button class="role"
+                            data-role="institution">
+
+                        <span class="role-icon">ED</span>
+
+                        <span class="role-info">
+                            <strong>Institution</strong>
+                            <small>Manage & analyse</small>
+                        </span>
+
+                        <span class="check">✓</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Login form -->
+            <form id="loginForm">
+
+                <input type="hidden"
+                       id="selectedRole"
+                       name="role"
+                       value="student">
+
+
+                <div class="field">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">@</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <div class="password-label">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <a href="#">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">⌁</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="togglePassword"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="remember">
+
+                    <label>
+                        <input type="checkbox">
+                        <span class="custom-check"></span>
+                        Remember me
+                    </label>
+
+                </div>
+
+
+                <button type="submit"
+                        class="login-button">
+
+                    <span>Continue as Student</span>
+
+                    <span class="button-arrow">↗</span>
+
+                </button>
+
+            </form>
+
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+
+            <p class="register-text">
+
+                Don't have an account?
+
+                <a href="\register">
+                    Create one
+                </a>
+
+            </p>
+
+
+            <div class="secure">
+
+                <span>✓</span>
+
+                Secure & role-based access
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+</body>
+</html>

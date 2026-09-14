@@ -1,0 +1,5126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EduSathi | Industry Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        :root {
+            --bg: #07090d;
+            --panel: #0d1118;
+            --panel2: #111722;
+            --border: rgba(255,255,255,.08);
+
+            --text: #f3f6fb;
+            --muted: #8b96a8;
+
+            --accent: #6c63ff;
+            --accent2: #00d4ff;
+
+            --green: #27d17f;
+            --orange: #ffad42;
+            --red: #ff5d73;
+
+            --sidebar: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 80% 0%,
+                    rgba(108,99,255,.10),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 20% 100%,
+                    rgba(0,212,255,.06),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: var(--sidebar);
+
+            background: rgba(8,11,16,.95);
+
+            border-right: 1px solid var(--border);
+
+            padding: 22px 15px;
+
+            z-index: 100;
+
+            backdrop-filter: blur(20px);
+
+            overflow-y: auto;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 5px 10px 28px;
+        }
+
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent2)
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: "Space Grotesk";
+            font-weight: 800;
+
+            box-shadow:
+                0 0 25px rgba(108,99,255,.25);
+        }
+
+
+        .brand-name {
+            font-family: "Space Grotesk";
+
+            font-size: 20px;
+
+            font-weight: 700;
+        }
+
+
+        .brand-name span {
+            color: var(--accent2);
+        }
+
+
+        .role-label {
+            font-size: 10px;
+
+            color: var(--muted);
+
+            margin-top: 2px;
+        }
+
+
+        .nav-section {
+            margin-bottom: 23px;
+        }
+
+
+        .nav-title {
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.2px;
+
+            color: #586274;
+
+            padding: 0 12px 8px;
+
+            text-transform: uppercase;
+        }
+
+
+        .nav-item {
+            width: 100%;
+
+            border: 0;
+
+            background: transparent;
+
+            color: #8d97a8;
+
+            padding: 10px 12px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 3px;
+
+            text-align: left;
+
+            font-size: 13px;
+
+            transition: .2s;
+        }
+
+
+        .nav-item:hover {
+            background: rgba(255,255,255,.04);
+
+            color: white;
+        }
+
+
+        .nav-item.active {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(108,99,255,.18),
+                    rgba(108,99,255,.05)
+                );
+
+            color: white;
+
+            border-left: 2px solid var(--accent);
+        }
+
+
+        .nav-icon {
+            width: 18px;
+
+            text-align: center;
+
+            font-size: 15px;
+        }
+
+
+        .profile-mini {
+            border-top: 1px solid var(--border);
+
+            padding: 17px 8px 0;
+
+            margin-top: 8px;
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #272d3b,
+                    #5663a4
+                );
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 12px;
+        }
+
+
+        .mini-info {
+            min-width: 0;
+        }
+
+
+        .mini-name {
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .mini-role {
+            font-size: 10px;
+
+            color: var(--muted);
+
+            margin-top: 2px;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main {
+            margin-left: var(--sidebar);
+
+            min-height: 100vh;
+        }
+
+
+        .topbar {
+            height: 70px;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: rgba(7,9,13,.65);
+
+            backdrop-filter: blur(15px);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+        }
+
+
+        .page-title {
+            font-family: "Space Grotesk";
+
+            font-size: 19px;
+
+            font-weight: 700;
+        }
+
+
+        .page-subtitle {
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-top: 2px;
+        }
+
+
+        .top-actions {
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--border);
+
+            background: var(--panel);
+
+            color: #b9c1cf;
+
+            position: relative;
+        }
+
+
+        .notification-dot {
+            position: absolute;
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--red);
+
+            right: 8px;
+            top: 7px;
+        }
+
+
+        .content {
+            padding: 28px 30px 50px;
+
+            max-width: 1500px;
+        }
+
+
+        .page {
+            display: none;
+
+            animation: fadeIn .25s ease;
+        }
+
+
+        .page.active {
+            display: block;
+        }
+
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================================
+           COMMON
+        ========================================= */
+
+        .welcome {
+            padding: 25px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(108,99,255,.12),
+                    transparent 50%
+                ),
+                var(--panel);
+
+            margin-bottom: 22px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .welcome::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            right: -100px;
+            top: -130px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(108,99,255,.15);
+
+            box-shadow:
+                0 0 0 25px rgba(108,99,255,.025),
+                0 0 0 50px rgba(108,99,255,.018);
+        }
+
+
+        .welcome h1 {
+            font-family: "Space Grotesk";
+
+            font-size: 25px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .welcome p {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .stats {
+            display: grid;
+
+            grid-template-columns: repeat(4,1fr);
+
+            gap: 14px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .stat {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 18px;
+        }
+
+
+        .stat-label {
+            font-size: 11px;
+
+            color: var(--muted);
+        }
+
+
+        .stat-value {
+            font-family: "Space Grotesk";
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            margin-top: 8px;
+        }
+
+
+        .stat-change {
+            font-size: 10px;
+
+            margin-top: 6px;
+
+            color: var(--green);
+        }
+
+
+        .grid-2 {
+            display: grid;
+
+            grid-template-columns: 1.4fr 1fr;
+
+            gap: 18px;
+        }
+
+
+        .card {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            padding: 20px;
+        }
+
+
+        .card-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+
+        .card-title {
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .card-subtitle {
+            color: var(--muted);
+
+            font-size: 10px;
+
+            margin-top: 3px;
+        }
+
+
+        .view-btn {
+            background: transparent;
+
+            border: 0;
+
+            color: var(--accent2);
+
+            font-size: 11px;
+        }
+
+
+        .btn {
+            border: 0;
+
+            border-radius: 9px;
+
+            padding: 10px 15px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            transition: .2s;
+        }
+
+
+        .btn-primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    #4d8cff
+                );
+        }
+
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 25px rgba(108,99,255,.22);
+        }
+
+
+        .btn-outline {
+            color: #cbd2df;
+
+            background: transparent;
+
+            border: 1px solid var(--border);
+        }
+
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,.04);
+        }
+
+
+        .badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 5px 8px;
+
+            border-radius: 6px;
+
+            font-size: 9px;
+
+            font-weight: 600;
+        }
+
+
+        .badge-green {
+            color: var(--green);
+
+            background: rgba(39,209,127,.1);
+        }
+
+
+        .badge-purple {
+            color: #a8a2ff;
+
+            background: rgba(108,99,255,.12);
+        }
+
+
+        .badge-orange {
+            color: var(--orange);
+
+            background: rgba(255,173,66,.1);
+        }
+
+
+        .badge-blue {
+            color: var(--accent2);
+
+            background: rgba(0,212,255,.08);
+        }
+
+
+        /* =========================================
+           TALENT CARDS
+        ========================================= */
+
+        .talent-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .talent {
+            padding: 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            background: rgba(255,255,255,.015);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            transition: .2s;
+        }
+
+
+        .talent:hover {
+            border-color: rgba(108,99,255,.35);
+
+            background: rgba(108,99,255,.035);
+        }
+
+
+        .talent-main {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+
+        .talent-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #272e42,
+                    #4c5790
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            flex-shrink: 0;
+        }
+
+
+        .talent-name {
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .talent-course {
+            font-size: 10px;
+
+            color: var(--muted);
+
+            margin-top: 4px;
+        }
+
+
+        .talent-skills {
+            font-size: 9px;
+
+            color: #7e899b;
+
+            margin-top: 5px;
+        }
+
+
+        .talent-actions {
+            display: flex;
+
+            gap: 7px;
+
+            align-items: center;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================
+           OPPORTUNITY GRID
+        ========================================= */
+
+        .program-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3,1fr);
+
+            gap: 15px;
+        }
+
+
+        .program-card {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 19px;
+
+            transition: .2s;
+        }
+
+
+        .program-card:hover {
+            transform: translateY(-2px);
+
+            border-color: rgba(108,99,255,.35);
+        }
+
+
+        .program-type {
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+
+            color: var(--accent2);
+
+            margin-bottom: 12px;
+        }
+
+
+        .program-title {
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+        }
+
+
+        .program-org {
+            color: var(--muted);
+
+            font-size: 10px;
+
+            margin-top: 7px;
+        }
+
+
+        .program-desc {
+            color: #8994a5;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+            margin-top: 12px;
+        }
+
+
+        .program-footer {
+            border-top: 1px solid var(--border);
+
+            margin-top: 15px;
+
+            padding-top: 13px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        /* =========================================
+           FILTERS
+        ========================================= */
+
+        .filters {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 17px;
+        }
+
+
+        .filter {
+            padding: 8px 12px;
+
+            background: var(--panel);
+
+            color: var(--muted);
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            font-size: 10px;
+        }
+
+
+        .filter.active {
+            color: white;
+
+            border-color: rgba(108,99,255,.5);
+
+            background: rgba(108,99,255,.12);
+        }
+
+
+        /* =========================================
+           ACTIVITY
+        ========================================= */
+
+        .activity {
+            display: flex;
+
+            gap: 11px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .activity-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            margin-top: 4px;
+
+            background: var(--accent);
+
+            box-shadow:
+                0 0 10px rgba(108,99,255,.4);
+
+            flex-shrink: 0;
+        }
+
+
+        .activity-text {
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        .activity-time {
+            color: #657083;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================================
+           DETAIL
+        ========================================= */
+
+        .back-btn {
+            background: transparent;
+
+            border: 0;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .back-btn:hover {
+            color: white;
+        }
+
+
+        .detail-hero {
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(108,99,255,.13),
+                    transparent
+                ),
+                var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 17px;
+
+            padding: 25px;
+
+            margin-bottom: 17px;
+        }
+
+
+        .detail-top {
+            display: flex;
+
+            gap: 15px;
+
+            align-items: center;
+        }
+
+
+        .large-logo {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 14px;
+
+            background: #171d28;
+
+            border: 1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 800;
+
+            color: #a9a4ff;
+
+            flex-shrink: 0;
+        }
+
+
+        .detail-title {
+            font-family: "Space Grotesk";
+
+            font-size: 22px;
+        }
+
+
+        .detail-company {
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-top: 4px;
+        }
+
+
+        .detail-body {
+            margin-top: 22px;
+
+            color: #a5afbf;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+
+        .detail-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4,1fr);
+
+            gap: 10px;
+
+            margin-top: 17px;
+        }
+
+
+        .detail-box {
+            background: rgba(255,255,255,.025);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            padding: 13px;
+        }
+
+
+        .detail-box span {
+            color: var(--muted);
+
+            display: block;
+
+            font-size: 9px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .detail-box strong {
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+
+        th {
+            color: #657083;
+
+            font-size: 9px;
+
+            text-align: left;
+
+            padding: 12px;
+
+            border-bottom: 1px solid var(--border);
+
+            text-transform: uppercase;
+
+            letter-spacing: .6px;
+        }
+
+
+        td {
+            padding: 14px 12px;
+
+            border-bottom: 1px solid var(--border);
+
+            font-size: 10px;
+
+            color: #c3cad5;
+        }
+
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+
+        /* =========================================
+           PROFILE
+        ========================================= */
+
+        .profile-grid {
+            display: grid;
+
+            grid-template-columns: 260px 1fr;
+
+            gap: 18px;
+        }
+
+
+        .profile-card {
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            text-align: center;
+        }
+
+
+        .profile-avatar {
+            width: 85px;
+            height: 85px;
+
+            border-radius: 18px;
+
+            margin: 0 auto 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #313a54,
+                    #7168d9
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 24px;
+
+            font-weight: 800;
+        }
+
+
+        .profile-name {
+            font-size: 16px;
+
+            font-weight: 700;
+        }
+
+
+        .profile-role {
+            color: var(--muted);
+
+            font-size: 10px;
+
+            margin-top: 5px;
+        }
+
+
+        .profile-stats {
+            border-top: 1px solid var(--border);
+
+            margin-top: 20px;
+
+            padding-top: 16px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+        }
+
+
+        .profile-stat strong {
+            font-size: 15px;
+
+            display: block;
+        }
+
+
+        .profile-stat span {
+            font-size: 9px;
+
+            color: var(--muted);
+        }
+
+
+        .field-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 13px;
+        }
+
+
+        .field {
+            border: 1px solid var(--border);
+
+            background: rgba(255,255,255,.015);
+
+            padding: 13px;
+
+            border-radius: 10px;
+        }
+
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+
+        .field-label {
+            color: var(--muted);
+
+            font-size: 9px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .field-value {
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           NOTIFICATIONS
+        ========================================= */
+
+        .notification {
+            display: flex;
+
+            gap: 13px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .notification:last-child {
+            border-bottom: 0;
+        }
+
+
+        .notification-icon {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 9px;
+
+            background: rgba(108,99,255,.12);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .notification-title {
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        .notification-text {
+            color: var(--muted);
+
+            font-size: 10px;
+
+            margin-top: 4px;
+        }
+
+
+        .notification-time {
+            color: #5f6878;
+
+            font-size: 9px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        .mobile-menu {
+            display: none;
+
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid var(--border);
+
+            background: var(--panel);
+
+            color: white;
+
+            border-radius: 9px;
+        }
+
+
+        @media(max-width:1050px) {
+
+            .stats {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .program-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media(max-width:800px) {
+
+            :root {
+                --sidebar: 0px;
+            }
+
+            .sidebar {
+                width: 250px;
+
+                transform: translateX(-100%);
+
+                transition: .25s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 17px;
+            }
+
+            .content {
+                padding: 20px 15px 40px;
+            }
+
+            .page-title {
+                font-size: 16px;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+
+        @media(max-width:550px) {
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat {
+                padding: 14px;
+            }
+
+            .stat-value {
+                font-size: 21px;
+            }
+
+            .talent {
+                align-items: flex-start;
+            }
+
+            .talent-actions {
+                flex-direction: column;
+            }
+
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .welcome h1 {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            E
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                Edu<span>Sathi</span>
+            </div>
+
+            <div class="role-label">
+                INDUSTRY PORTAL
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            Workspace
+        </div>
+
+
+        <button class="nav-item active"
+                onclick="showPage('dashboard',this)">
+
+            <span class="nav-icon">⌂</span>
+
+            Dashboard
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('talent',this)">
+
+            <span class="nav-icon">◎</span>
+
+            Find Talent
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('skillmap',this)">
+
+            <span class="nav-icon">⌁</span>
+
+            Skill Mapping
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('internships',this)">
+
+            <span class="nav-icon">↗</span>
+
+            Internships & Jobs
+
+        </button>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            Engagement
+        </div>
+
+
+        <button class="nav-item"
+                onclick="showPage('projects',this)">
+
+            <span class="nav-icon">⚙</span>
+
+            Live Projects
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('mentorship',this)">
+
+            <span class="nav-icon">◇</span>
+
+            Mentorship
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('workshops',this)">
+
+            <span class="nav-icon">✦</span>
+
+            Workshops
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('research',this)">
+
+            <span class="nav-icon">⌬</span>
+
+            Research
+
+        </button>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            Manage
+        </div>
+
+
+        <button class="nav-item"
+                onclick="showPage('applications',this)">
+
+            <span class="nav-icon">✓</span>
+
+            Applications
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('profile',this)">
+
+            <span class="nav-icon">◉</span>
+
+            Company Profile
+
+        </button>
+
+
+        <button class="nav-item"
+                onclick="showPage('notifications',this)">
+
+            <span class="nav-icon">♢</span>
+
+            Notifications
+
+        </button>
+
+    </div>
+
+
+    <div class="profile-mini">
+
+        <div class="avatar">
+            TC
+        </div>
+
+        <div class="mini-info">
+
+            <div class="mini-name">
+                TechCore Solutions
+            </div>
+
+            <div class="mini-role">
+                Technology • Bengaluru
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <header class="topbar">
+
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+            <button class="mobile-menu"
+                    onclick="toggleSidebar()">
+                ☰
+            </button>
+
+
+            <div>
+
+                <div class="page-title"
+                     id="topTitle">
+
+                    Industry Dashboard
+
+                </div>
+
+
+                <div class="page-subtitle">
+
+                    Build your next generation workforce
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button class="icon-btn"
+                    onclick="showPage('notifications')">
+
+                ♢
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+
+            <button class="icon-btn"
+                    onclick="showPage('profile')">
+
+                ◉
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <div class="content">
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <section class="page active"
+                 id="dashboard">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Welcome back, TechCore 👋
+                </h1>
+
+                <p>
+                    Discover skilled students, build academic
+                    partnerships and solve real-world problems
+                    with EduSathi.
+                </p>
+
+            </div>
+
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Active Opportunities
+                    </div>
+
+                    <div class="stat-value">
+                        12
+                    </div>
+
+                    <div class="stat-change">
+                        ↑ 3 this month
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Applications
+                    </div>
+
+                    <div class="stat-value">
+                        86
+                    </div>
+
+                    <div class="stat-change">
+                        ↑ 18 this week
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Shortlisted Talent
+                    </div>
+
+                    <div class="stat-value">
+                        24
+                    </div>
+
+                    <div class="stat-change">
+                        8 interviews pending
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Academic Partners
+                    </div>
+
+                    <div class="stat-value">
+                        09
+                    </div>
+
+                    <div class="stat-change">
+                        ↑ 2 this quarter
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="grid-2">
+
+
+                <!-- TALENT -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <div class="card-title">
+                                Recommended Talent
+                            </div>
+
+                            <div class="card-subtitle">
+                                Students matching your current requirements
+                            </div>
+
+                        </div>
+
+
+                        <button class="view-btn"
+                                onclick="showPage('talent')">
+
+                            View all →
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="talent-list">
+
+
+                        <div class="talent">
+
+                            <div class="talent-main">
+
+                                <div class="talent-avatar">
+                                    AR
+                                </div>
+
+                                <div>
+
+                                    <div class="talent-name">
+                                        Arjun Raj
+                                    </div>
+
+                                    <div class="talent-course">
+                                        B.Tech CSE • Year 3
+                                    </div>
+
+                                    <div class="talent-skills">
+                                        Python • ML • SQL • Flask
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="talent-actions">
+
+                                <span class="badge badge-green">
+                                    96% Match
+                                </span>
+
+                                <button class="btn btn-outline"
+                                        onclick="openTalent('arjun')">
+
+                                    View
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="talent">
+
+                            <div class="talent-main">
+
+                                <div class="talent-avatar">
+                                    NS
+                                </div>
+
+                                <div>
+
+                                    <div class="talent-name">
+                                        Neha S
+                                    </div>
+
+                                    <div class="talent-course">
+                                        B.Tech ECE • Year 3
+                                    </div>
+
+                                    <div class="talent-skills">
+                                        Embedded • C • STM32 • IoT
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="talent-actions">
+
+                                <span class="badge badge-purple">
+                                    92% Match
+                                </span>
+
+                                <button class="btn btn-outline"
+                                        onclick="openTalent('neha')">
+
+                                    View
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="talent">
+
+                            <div class="talent-main">
+
+                                <div class="talent-avatar">
+                                    VM
+                                </div>
+
+                                <div>
+
+                                    <div class="talent-name">
+                                        Vishnu Menon
+                                    </div>
+
+                                    <div class="talent-course">
+                                        B.Tech CSE • Year 4
+                                    </div>
+
+                                    <div class="talent-skills">
+                                        React • Node.js • MongoDB
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="talent-actions">
+
+                                <span class="badge badge-blue">
+                                    89% Match
+                                </span>
+
+                                <button class="btn btn-outline"
+                                        onclick="openTalent('vishnu')">
+
+                                    View
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ACTIVITY -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <div class="card-title">
+                                Hiring Activity
+                            </div>
+
+                            <div class="card-subtitle">
+                                Latest activity on your opportunities
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+
+                            <div class="activity-text">
+                                <b>12 students</b> applied for
+                                Software Engineering Intern.
+                            </div>
+
+                            <div class="activity-time">
+                                1 hour ago
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+
+                            <div class="activity-text">
+                                You shortlisted
+                                <b>8 candidates</b> for Embedded Systems.
+                            </div>
+
+                            <div class="activity-time">
+                                Yesterday
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+
+                            <div class="activity-text">
+                                New faculty collaboration proposal
+                                received from CSE department.
+                            </div>
+
+                            <div class="activity-time">
+                                2 days ago
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+
+                            <div class="activity-text">
+                                Your Industry 4.0 workshop reached
+                                <b>120 registrations</b>.
+                            </div>
+
+                            <div class="activity-time">
+                                3 days ago
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FIND TALENT
+        ================================================= -->
+
+        <section class="page"
+                 id="talent">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Find Talent
+                </h1>
+
+                <p>
+                    Search and discover students based on skills,
+                    education, projects and career readiness.
+                </p>
+
+            </div>
+
+
+
+            <div class="filters">
+
+                <button class="filter active">
+                    All Talent
+                </button>
+
+                <button class="filter">
+                    CSE
+                </button>
+
+                <button class="filter">
+                    ECE
+                </button>
+
+                <button class="filter">
+                    AI / ML
+                </button>
+
+                <button class="filter">
+                    Embedded
+                </button>
+
+                <button class="filter">
+                    Web
+                </button>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="card-title">
+                            2,481 Student Profiles
+                        </div>
+
+                        <div class="card-subtitle">
+                            Ranked using skill compatibility
+                        </div>
+
+                    </div>
+
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Advanced talent search opened.')">
+
+                        Advanced Search
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="talent-list">
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                AR
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Arjun Raj
+                                </div>
+
+                                <div class="talent-course">
+                                    B.Tech Computer Science • Year 3
+                                </div>
+
+                                <div class="talent-skills">
+                                    Python • Machine Learning • SQL • Flask • Git
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="talent-actions">
+
+                            <span class="badge badge-green">
+                                96% Match
+                            </span>
+
+                            <button class="btn btn-primary"
+                                    onclick="openTalent('arjun')">
+                                Profile
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                NS
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Neha S
+                                </div>
+
+                                <div class="talent-course">
+                                    B.Tech Electronics & Communication • Year 3
+                                </div>
+
+                                <div class="talent-skills">
+                                    Embedded C • STM32 • IoT • PCB Design
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="talent-actions">
+
+                            <span class="badge badge-purple">
+                                92% Match
+                            </span>
+
+                            <button class="btn btn-primary"
+                                    onclick="openTalent('neha')">
+                                Profile
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                VM
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Vishnu Menon
+                                </div>
+
+                                <div class="talent-course">
+                                    B.Tech Computer Science • Year 4
+                                </div>
+
+                                <div class="talent-skills">
+                                    React • Node.js • MongoDB • AWS
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="talent-actions">
+
+                            <span class="badge badge-blue">
+                                89% Match
+                            </span>
+
+                            <button class="btn btn-primary"
+                                    onclick="openTalent('vishnu')">
+                                Profile
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                FK
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Fathima K
+                                </div>
+
+                                <div class="talent-course">
+                                    B.Tech AI & Data Science • Year 3
+                                </div>
+
+                                <div class="talent-skills">
+                                    Python • TensorFlow • Data Science • NLP
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="talent-actions">
+
+                            <span class="badge badge-green">
+                                87% Match
+                            </span>
+
+                            <button class="btn btn-primary"
+                                    onclick="openTalent('fathima')">
+                                Profile
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SKILL MAPPING
+        ================================================= -->
+
+        <section class="page"
+                 id="skillmap">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Skill Mapping
+                </h1>
+
+                <p>
+                    Compare industry skill requirements with the
+                    current talent pool and identify skill gaps.
+                </p>
+
+            </div>
+
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Skills Tracked
+                    </div>
+
+                    <div class="stat-value">
+                        84
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        High Demand Skills
+                    </div>
+
+                    <div class="stat-value">
+                        17
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Talent Skill Coverage
+                    </div>
+
+                    <div class="stat-value">
+                        73%
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Critical Gaps
+                    </div>
+
+                    <div class="stat-value">
+                        09
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="card-title">
+                            Industry Skill Requirements
+                        </div>
+
+                        <div class="card-subtitle">
+                            Current requirements vs available talent
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Skill requirement editor opened.')">
+
+                        + Add Requirement
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Skill
+                                </th>
+
+                                <th>
+                                    Demand
+                                </th>
+
+                                <th>
+                                    Talent
+                                </th>
+
+                                <th>
+                                    Coverage
+                                </th>
+
+                                <th>
+                                    Gap
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    Python
+                                </td>
+
+                                <td>
+                                    High
+                                </td>
+
+                                <td>
+                                    612
+                                </td>
+
+                                <td>
+                                    91%
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-green">
+                                        Low
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Machine Learning
+                                </td>
+
+                                <td>
+                                    High
+                                </td>
+
+                                <td>
+                                    284
+                                </td>
+
+                                <td>
+                                    68%
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-orange">
+                                        Medium
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Embedded Systems
+                                </td>
+
+                                <td>
+                                    High
+                                </td>
+
+                                <td>
+                                    194
+                                </td>
+
+                                <td>
+                                    52%
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-orange">
+                                        High
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    System Design
+                                </td>
+
+                                <td>
+                                    High
+                                </td>
+
+                                <td>
+                                    98
+                                </td>
+
+                                <td>
+                                    34%
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-orange">
+                                        Critical
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    Cloud / DevOps
+                                </td>
+
+                                <td>
+                                    Medium
+                                </td>
+
+                                <td>
+                                    176
+                                </td>
+
+                                <td>
+                                    61%
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-purple">
+                                        Medium
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             INTERNSHIPS / JOBS
+        ================================================= -->
+
+        <section class="page"
+                 id="internships">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Internships & Jobs
+                </h1>
+
+                <p>
+                    Create and manage opportunities for students
+                    and fresh graduates.
+                </p>
+
+            </div>
+
+
+
+            <div class="program-grid">
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Internship
+                    </div>
+
+                    <div class="program-title">
+                        Software Engineering Intern
+                    </div>
+
+                    <div class="program-org">
+                        6 Months • Hybrid
+                    </div>
+
+                    <div class="program-desc">
+                        Build production software and work with
+                        engineering teams on real-world applications.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-green">
+                            42 Applicants
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="openOpportunity('software')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Internship
+                    </div>
+
+                    <div class="program-title">
+                        Embedded Systems Intern
+                    </div>
+
+                    <div class="program-org">
+                        4 Months • On-site
+                    </div>
+
+                    <div class="program-desc">
+                        Develop firmware, work with microcontrollers
+                        and test embedded products.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-purple">
+                            28 Applicants
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="openOpportunity('embedded')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Full Time
+                    </div>
+
+                    <div class="program-title">
+                        Graduate Software Engineer
+                    </div>
+
+                    <div class="program-org">
+                        Bengaluru • Full Time
+                    </div>
+
+                    <div class="program-desc">
+                        Entry-level engineering role for graduates
+                        with strong programming fundamentals.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-blue">
+                            16 Applicants
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="openOpportunity('graduate')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Apprenticeship
+                    </div>
+
+                    <div class="program-title">
+                        AI Engineering Apprentice
+                    </div>
+
+                    <div class="program-org">
+                        12 Months • Hybrid
+                    </div>
+
+                    <div class="program-desc">
+                        Structured industry apprenticeship combining
+                        learning, mentorship and production work.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-orange">
+                            31 Applicants
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="openOpportunity('ai')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div style="margin-top:20px;text-align:center;">
+
+                <button class="btn btn-primary"
+                        onclick="alert('New opportunity creation form opened.')">
+
+                    + Post New Opportunity
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LIVE PROJECTS
+        ================================================= -->
+
+        <section class="page"
+                 id="projects">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Live Industry Projects
+                </h1>
+
+                <p>
+                    Give students and faculty opportunities to solve
+                    authentic industry problems.
+                </p>
+
+            </div>
+
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Active Projects
+                    </div>
+
+                    <div class="stat-value">
+                        07
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Students Involved
+                    </div>
+
+                    <div class="stat-value">
+                        38
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Faculty Partners
+                    </div>
+
+                    <div class="stat-value">
+                        11
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-label">
+                        Completed
+                    </div>
+
+                    <div class="stat-value">
+                        19
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="card-title">
+                            Current Projects
+                        </div>
+
+                        <div class="card-subtitle">
+                            Industry problems being solved by academia
+                        </div>
+
+                    </div>
+
+
+                    <button class="btn btn-primary"
+                            onclick="alert('New project workspace opened.')">
+
+                        + Create Project
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="talent-list">
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                AI
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Predictive Maintenance Platform
+                                </div>
+
+                                <div class="talent-course">
+                                    6 Students • 2 Faculty • AI/ML
+                                </div>
+
+                                <div class="talent-skills">
+                                    Progress: 76%
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="badge badge-green">
+                            On Track
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                IoT
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Smart Factory Monitoring
+                                </div>
+
+                                <div class="talent-course">
+                                    8 Students • 3 Faculty • IoT
+                                </div>
+
+                                <div class="talent-skills">
+                                    Progress: 61%
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="badge badge-purple">
+                            Active
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="talent">
+
+                        <div class="talent-main">
+
+                            <div class="talent-avatar">
+                                WEB
+                            </div>
+
+                            <div>
+
+                                <div class="talent-name">
+                                    Internal Skill Intelligence Platform
+                                </div>
+
+                                <div class="talent-course">
+                                    5 Students • 1 Faculty • Web/Data
+                                </div>
+
+                                <div class="talent-skills">
+                                    Progress: 88%
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="badge badge-orange">
+                            Review
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MENTORSHIP
+        ================================================= -->
+
+        <section class="page"
+                 id="mentorship">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Industry Mentorship
+                </h1>
+
+                <p>
+                    Share industry knowledge and guide students
+                    beyond the classroom.
+                </p>
+
+            </div>
+
+
+
+            <div class="program-grid">
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Mentorship Program
+                    </div>
+
+                    <div class="program-title">
+                        Software Engineering Mentorship
+                    </div>
+
+                    <div class="program-org">
+                        8 Students • 12 Weeks
+                    </div>
+
+                    <div class="program-desc">
+                        Guide students through engineering practices,
+                        Git workflows, code reviews and career preparation.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-green">
+                            Active
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Mentorship dashboard opened.')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Mentorship Program
+                    </div>
+
+                    <div class="program-title">
+                        Embedded Systems Career Mentorship
+                    </div>
+
+                    <div class="program-org">
+                        6 Students • 10 Weeks
+                    </div>
+
+                    <div class="program-desc">
+                        Help ECE students understand semiconductor,
+                        firmware and embedded engineering careers.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-purple">
+                            Recruiting
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Mentor registration opened.')">
+                            Add Mentors
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Career Mentorship
+                    </div>
+
+                    <div class="program-title">
+                        AI Career Accelerator
+                    </div>
+
+                    <div class="program-org">
+                        10 Students • 8 Weeks
+                    </div>
+
+                    <div class="program-desc">
+                        Industry mentors guide students through
+                        AI portfolios, interviews and real-world skills.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-blue">
+                            Upcoming
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Program details opened.')">
+                            Details
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             WORKSHOPS
+        ================================================= -->
+
+        <section class="page"
+                 id="workshops">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Workshops & Learning Programs
+                </h1>
+
+                <p>
+                    Create industry-led learning experiences for
+                    students and faculty.
+                </p>
+
+            </div>
+
+
+
+            <div class="program-grid">
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Workshop
+                    </div>
+
+                    <div class="program-title">
+                        Production AI Engineering
+                    </div>
+
+                    <div class="program-org">
+                        2 Days • Online
+                    </div>
+
+                    <div class="program-desc">
+                        Teach students how real-world AI systems
+                        are designed, deployed and monitored.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-green">
+                            120 Registered
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Workshop management opened.')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Bootcamp
+                    </div>
+
+                    <div class="program-title">
+                        Full Stack Product Development
+                    </div>
+
+                    <div class="program-org">
+                        5 Days • Hybrid
+                    </div>
+
+                    <div class="program-desc">
+                        Students build and deploy a complete product
+                        with modern web technologies.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-purple">
+                            80 Seats
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Bootcamp setup opened.')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Faculty Session
+                    </div>
+
+                    <div class="program-title">
+                        Industry Skills for Modern ECE
+                    </div>
+
+                    <div class="program-org">
+                        1 Day • On-site
+                    </div>
+
+                    <div class="program-desc">
+                        Help faculty understand emerging semiconductor,
+                        embedded and electronics industry requirements.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-blue">
+                            Faculty
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Session management opened.')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div style="margin-top:20px;text-align:center;">
+
+                <button class="btn btn-primary"
+                        onclick="alert('New workshop creation opened.')">
+
+                    + Create Learning Program
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESEARCH
+        ================================================= -->
+
+        <section class="page"
+                 id="research">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Research & Academia
+                </h1>
+
+                <p>
+                    Connect with faculty and institutions for
+                    research, R&D and innovation.
+                </p>
+
+            </div>
+
+
+
+            <div class="program-grid">
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Joint Research
+                    </div>
+
+                    <div class="program-title">
+                        Edge AI for Industrial Devices
+                    </div>
+
+                    <div class="program-org">
+                        4 Faculty • 2 Institutions
+                    </div>
+
+                    <div class="program-desc">
+                        Research collaboration on efficient AI models
+                        for resource-constrained industrial devices.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-green">
+                            Active
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Research workspace opened.')">
+                            Manage
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Sponsored R&D
+                    </div>
+
+                    <div class="program-title">
+                        Smart Mobility Systems
+                    </div>
+
+                    <div class="program-org">
+                        3 Faculty • 1 Institution
+                    </div>
+
+                    <div class="program-desc">
+                        Develop intelligent mobility technologies
+                        through academic-industry R&D.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-purple">
+                            Proposal Stage
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Proposal workspace opened.')">
+                            Review
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Innovation
+                    </div>
+
+                    <div class="program-title">
+                        Sustainable Electronics
+                    </div>
+
+                    <div class="program-org">
+                        Open Collaboration
+                    </div>
+
+                    <div class="program-desc">
+                        Explore low-power and sustainable electronics
+                        with academic research teams.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-blue">
+                            Open
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Faculty discovery opened.')">
+                            Find Faculty
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             APPLICATIONS
+        ================================================= -->
+
+        <section class="page"
+                 id="applications">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Applications & Recruitment
+                </h1>
+
+                <p>
+                    Track student applications, shortlist candidates
+                    and manage your recruitment pipeline.
+                </p>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="card-title">
+                            Recruitment Pipeline
+                        </div>
+
+                        <div class="card-subtitle">
+                            Current candidate activity
+                        </div>
+
+                    </div>
+
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Candidate filtering opened.')">
+
+                        Filter
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Candidate
+                                </th>
+
+                                <th>
+                                    Opportunity
+                                </th>
+
+                                <th>
+                                    Match
+                                </th>
+
+                                <th>
+                                    Applied
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr>
+
+                                <td>
+                                    Arjun Raj
+                                </td>
+
+                                <td>
+                                    Software Engineering Intern
+                                </td>
+
+                                <td>
+                                    96%
+                                </td>
+
+                                <td>
+                                    12 Sept
+                                </td>
+
+                                <td>
+
+                                    <span class="badge badge-green">
+                                        Shortlisted
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-outline"
+                                            onclick="openTalent('arjun')">
+
+                                        View
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    Neha S
+                                </td>
+
+                                <td>
+                                    Embedded Systems Intern
+                                </td>
+
+                                <td>
+                                    92%
+                                </td>
+
+                                <td>
+                                    11 Sept
+                                </td>
+
+                                <td>
+
+                                    <span class="badge badge-purple">
+                                        Review
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-outline"
+                                            onclick="openTalent('neha')">
+
+                                        Review
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    Vishnu Menon
+                                </td>
+
+                                <td>
+                                    Graduate Software Engineer
+                                </td>
+
+                                <td>
+                                    89%
+                                </td>
+
+                                <td>
+                                    10 Sept
+                                </td>
+
+                                <td>
+
+                                    <span class="badge badge-orange">
+                                        Interview
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-outline"
+                                            onclick="alert('Interview workspace opened.')">
+
+                                        Open
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    Fathima K
+                                </td>
+
+                                <td>
+                                    AI Engineering Apprentice
+                                </td>
+
+                                <td>
+                                    87%
+                                </td>
+
+                                <td>
+                                    09 Sept
+                                </td>
+
+                                <td>
+
+                                    <span class="badge badge-blue">
+                                        Applied
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-outline"
+                                            onclick="openTalent('fathima')">
+
+                                        View
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             COMPANY PROFILE
+        ================================================= -->
+
+        <section class="page"
+                 id="profile">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Company Profile
+                </h1>
+
+                <p>
+                    Maintain your organisation's verified profile
+                    for better academia-industry matching.
+                </p>
+
+            </div>
+
+
+
+            <div class="profile-grid">
+
+
+                <div class="profile-card">
+
+
+                    <div class="profile-avatar">
+                        TC
+                    </div>
+
+
+                    <div class="profile-name">
+                        TechCore Solutions
+                    </div>
+
+
+                    <div class="profile-role">
+                        Technology & Software
+                    </div>
+
+
+                    <div style="margin-top:12px">
+
+                        <span class="badge badge-green">
+                            ✓ Verified Company
+                        </span>
+
+                    </div>
+
+
+                    <div class="profile-stats">
+
+
+                        <div class="profile-stat">
+
+                            <strong>
+                                12
+                            </strong>
+
+                            <span>
+                                Opportunities
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-stat">
+
+                            <strong>
+                                09
+                            </strong>
+
+                            <span>
+                                Partners
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-stat">
+
+                            <strong>
+                                42
+                            </strong>
+
+                            <span>
+                                Hires
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-stat">
+
+                            <strong>
+                                18
+                            </strong>
+
+                            <span>
+                                Projects
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <div class="card-title">
+                                Organisation Information
+                            </div>
+
+                            <div class="card-subtitle">
+                                Information visible to academia
+                            </div>
+
+                        </div>
+
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Company profile editing enabled.')">
+
+                            Edit Profile
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="field-grid">
+
+
+                        <div class="field">
+
+                            <div class="field-label">
+                                Company
+                            </div>
+
+                            <div class="field-value">
+                                TechCore Solutions Pvt. Ltd.
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <div class="field-label">
+                                Industry
+                            </div>
+
+                            <div class="field-value">
+                                Information Technology
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <div class="field-label">
+                                Headquarters
+                            </div>
+
+                            <div class="field-value">
+                                Bengaluru, India
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <div class="field-label">
+                                Organisation Size
+                            </div>
+
+                            <div class="field-value">
+                                500–1000 Employees
+                            </div>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <div class="field-label">
+                                Focus Areas
+                            </div>
+
+                            <div class="field-value">
+                                Artificial Intelligence • Cloud Computing •
+                                Embedded Systems • Web Technologies •
+                                Data Engineering
+                            </div>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <div class="field-label">
+                                Collaboration Interests
+                            </div>
+
+                            <div class="field-value">
+                                Internships • Placements • Research •
+                                Faculty Development • Mentorship •
+                                Live Projects • Consultancy
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             NOTIFICATIONS
+        ================================================= -->
+
+        <section class="page"
+                 id="notifications">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Notifications
+                </h1>
+
+                <p>
+                    Stay updated on applications, candidates
+                    and academic collaborations.
+                </p>
+
+            </div>
+
+
+
+            <div class="card">
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <div class="notification-title">
+                            12 new applications received
+                        </div>
+
+                        <div class="notification-text">
+                            Software Engineering Intern has received
+                            12 new applications.
+                        </div>
+
+                        <div class="notification-time">
+                            1 hour ago
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">
+                        ◎
+                    </div>
+
+                    <div>
+
+                        <div class="notification-title">
+                            New student match
+                        </div>
+
+                        <div class="notification-text">
+                            Arjun Raj has been identified as a 96%
+                            match for your internship.
+                        </div>
+
+                        <div class="notification-time">
+                            3 hours ago
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">
+                        ◇
+                    </div>
+
+                    <div>
+
+                        <div class="notification-title">
+                            Faculty collaboration proposal
+                        </div>
+
+                        <div class="notification-text">
+                            A faculty member has submitted a proposal
+                            for an AI research collaboration.
+                        </div>
+
+                        <div class="notification-time">
+                            Yesterday
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <div class="notification-title">
+                            Workshop registration milestone
+                        </div>
+
+                        <div class="notification-text">
+                            Your Industry 4.0 workshop crossed
+                            100 registrations.
+                        </div>
+
+                        <div class="notification-time">
+                            3 days ago
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             OPPORTUNITY DETAIL
+        ================================================= -->
+
+        <section class="page"
+                 id="opportunity-detail">
+
+
+            <button class="back-btn"
+                    onclick="showPage('internships')">
+
+                ← Back to opportunities
+
+            </button>
+
+
+
+            <div class="detail-hero">
+
+
+                <div class="detail-top">
+
+
+                    <div class="large-logo"
+                         id="detailLogo">
+
+                        TC
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="detail-title"
+                             id="detailTitle">
+
+                            Software Engineering Intern
+
+                        </div>
+
+
+                        <div class="detail-company"
+                             id="detailCompany">
+
+                            TechCore Solutions
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="detail-body"
+                     id="detailDescription">
+
+                    Build production software while working with
+                    experienced engineering teams.
+
+                </div>
+
+
+
+                <div class="detail-grid">
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Type
+                        </span>
+
+                        <strong id="detailType">
+                            Internship
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Duration
+                        </span>
+
+                        <strong id="detailDuration">
+                            6 Months
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Applicants
+                        </span>
+
+                        <strong id="detailApplicants">
+                            42
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Status
+                        </span>
+
+                        <strong>
+                            Active
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div style="display:flex;gap:9px;margin-top:20px;">
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Recruitment dashboard opened.')">
+
+                        Manage Applicants
+
+                    </button>
+
+
+                    <button class="btn btn-outline"
+                            onclick="alert('Opportunity editing enabled.')">
+
+                        Edit Opportunity
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="grid-2">
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Required Skills
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        gap:7px;
+                        flex-wrap:wrap;
+                        margin-top:15px;
+                    ">
+
+                        <span class="badge badge-purple">
+                            Python
+                        </span>
+
+                        <span class="badge badge-blue">
+                            Git
+                        </span>
+
+                        <span class="badge badge-green">
+                            Data Structures
+                        </span>
+
+                        <span class="badge badge-orange">
+                            REST APIs
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Recruitment Insights
+                    </div>
+
+
+                    <div style="margin-top:15px">
+
+                        <div class="activity">
+
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                42 total applications
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                12 candidates shortlisted
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                5 interviews scheduled
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             TALENT DETAIL
+        ================================================= -->
+
+        <section class="page"
+                 id="talent-detail">
+
+
+            <button class="back-btn"
+                    onclick="showPage('talent')">
+
+                ← Back to talent
+
+            </button>
+
+
+
+            <div class="detail-hero">
+
+
+                <div class="detail-top">
+
+
+                    <div class="large-logo"
+                         id="talentLogo">
+
+                        AR
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="detail-title"
+                             id="talentName">
+
+                            Arjun Raj
+
+                        </div>
+
+
+                        <div class="detail-company"
+                             id="talentEducation">
+
+                            B.Tech Computer Science • Year 3
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="detail-body"
+                     id="talentDescription">
+
+                    Strong software development candidate with
+                    experience in Python, machine learning and web
+                    development.
+
+                </div>
+
+
+
+                <div class="detail-grid">
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Match Score
+                        </span>
+
+                        <strong id="talentMatch">
+                            96%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Career Readiness
+                        </span>
+
+                        <strong>
+                            91/100
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Projects
+                        </span>
+
+                        <strong>
+                            05
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>
+                            Availability
+                        </span>
+
+                        <strong>
+                            Immediate
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div style="display:flex;gap:9px;margin-top:20px;">
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Candidate shortlisted.')">
+
+                        Shortlist
+
+                    </button>
+
+
+                    <button class="btn btn-outline"
+                            onclick="alert('Interview scheduling opened.')">
+
+                        Schedule Interview
+
+                    </button>
+
+
+                    <button class="btn btn-outline"
+                            onclick="alert('Student portfolio opened.')">
+
+                        View Portfolio
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="grid-2">
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Verified Skills
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        gap:7px;
+                        flex-wrap:wrap;
+                        margin-top:15px;
+                    ">
+
+                        <span class="badge badge-green">
+                            Python 86%
+                        </span>
+
+                        <span class="badge badge-purple">
+                            Machine Learning 81%
+                        </span>
+
+                        <span class="badge badge-blue">
+                            SQL 78%
+                        </span>
+
+                        <span class="badge badge-orange">
+                            Flask 74%
+                        </span>
+
+                        <span class="badge badge-blue">
+                            Git 70%
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Featured Projects
+                    </div>
+
+
+                    <div style="margin-top:15px">
+
+                        <div class="activity">
+
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                AI-based Smart Mobility System
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                E-commerce Management Platform
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                ML-based Student Analytics
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+
+    /* ============================================
+       PAGE TITLES
+    ============================================ */
+
+    const pageTitles = {
+
+        dashboard: "Industry Dashboard",
+
+        talent: "Find Talent",
+
+        skillmap: "Skill Mapping",
+
+        internships: "Internships & Jobs",
+
+        projects: "Live Industry Projects",
+
+        mentorship: "Industry Mentorship",
+
+        workshops: "Workshops & Learning",
+
+        research: "Research & Academia",
+
+        applications: "Applications & Recruitment",
+
+        profile: "Company Profile",
+
+        notifications: "Notifications",
+
+        "opportunity-detail":
+            "Opportunity Details",
+
+        "talent-detail":
+            "Talent Profile"
+
+    };
+
+
+
+    /* ============================================
+       NAVIGATION
+    ============================================ */
+
+    function showPage(
+        pageId,
+        clickedItem = null
+    ) {
+
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+
+                page.classList.remove("active");
+
+            });
+
+
+        const target =
+            document.getElementById(pageId);
+
+
+        if (target) {
+
+            target.classList.add("active");
+
+        }
+
+
+        document
+            .querySelectorAll(".nav-item")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+
+        if (clickedItem) {
+
+            clickedItem.classList.add("active");
+
+        }
+
+
+        document
+            .getElementById("topTitle")
+            .innerText =
+            pageTitles[pageId] ||
+            "EduSathi";
+
+
+        closeSidebar();
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+
+    /* ============================================
+       OPPORTUNITIES
+    ============================================ */
+
+    const opportunities = {
+
+        software: {
+
+            logo: "TC",
+
+            title:
+                "Software Engineering Intern",
+
+            company:
+                "TechCore Solutions",
+
+            type:
+                "Internship",
+
+            duration:
+                "6 Months",
+
+            applicants:
+                "42",
+
+            description:
+                "Build production software while working with experienced engineering teams. Students will contribute to real applications and learn modern software engineering practices."
+
+        },
+
+
+        embedded: {
+
+            logo: "EMB",
+
+            title:
+                "Embedded Systems Intern",
+
+            company:
+                "TechCore Solutions",
+
+            type:
+                "Internship",
+
+            duration:
+                "4 Months",
+
+            applicants:
+                "28",
+
+            description:
+                "Work with firmware, microcontrollers, communication protocols and embedded product development."
+
+        },
+
+
+        graduate: {
+
+            logo: "TC",
+
+            title:
+                "Graduate Software Engineer",
+
+            company:
+                "TechCore Solutions",
+
+            type:
+                "Full Time",
+
+            duration:
+                "Permanent",
+
+            applicants:
+                "16",
+
+            description:
+                "Entry-level engineering opportunity for graduates with strong programming fundamentals and problem-solving skills."
+
+        },
+
+
+        ai: {
+
+            logo: "AI",
+
+            title:
+                "AI Engineering Apprentice",
+
+            company:
+                "TechCore Solutions",
+
+            type:
+                "Apprenticeship",
+
+            duration:
+                "12 Months",
+
+            applicants:
+                "31",
+
+            description:
+                "A structured apprenticeship combining technical learning, mentorship and real-world AI engineering experience."
+
+        }
+
+    };
+
+
+
+    function openOpportunity(id) {
+
+        const data =
+            opportunities[id];
+
+
+        if (!data) return;
+
+
+        document
+            .getElementById("detailLogo")
+            .innerText =
+            data.logo;
+
+
+        document
+            .getElementById("detailTitle")
+            .innerText =
+            data.title;
+
+
+        document
+            .getElementById("detailCompany")
+            .innerText =
+            data.company;
+
+
+        document
+            .getElementById("detailType")
+            .innerText =
+            data.type;
+
+
+        document
+            .getElementById("detailDuration")
+            .innerText =
+            data.duration;
+
+
+        document
+            .getElementById("detailApplicants")
+            .innerText =
+            data.applicants;
+
+
+        document
+            .getElementById("detailDescription")
+            .innerText =
+            data.description;
+
+
+        showPage(
+            "opportunity-detail"
+        );
+
+    }
+
+
+
+    /* ============================================
+       TALENT
+    ============================================ */
+
+    const talent = {
+
+        arjun: {
+
+            initials: "AR",
+
+            name: "Arjun Raj",
+
+            education:
+                "B.Tech Computer Science • Year 3",
+
+            match: "96%",
+
+            description:
+                "Strong software development candidate with experience in Python, machine learning, web development and database technologies."
+
+        },
+
+
+        neha: {
+
+            initials: "NS",
+
+            name: "Neha S",
+
+            education:
+                "B.Tech Electronics & Communication • Year 3",
+
+            match: "92%",
+
+            description:
+                "Embedded systems enthusiast with hands-on experience in STM32, Embedded C, IoT and PCB development."
+
+        },
+
+
+        vishnu: {
+
+            initials: "VM",
+
+            name: "Vishnu Menon",
+
+            education:
+                "B.Tech Computer Science • Year 4",
+
+            match: "89%",
+
+            description:
+                "Full-stack developer experienced in React, Node.js, MongoDB and cloud deployment."
+
+        },
+
+
+        fathima: {
+
+            initials: "FK",
+
+            name: "Fathima K",
+
+            education:
+                "B.Tech AI & Data Science • Year 3",
+
+            match: "87%",
+
+            description:
+                "AI and data science student with experience in Python, TensorFlow, NLP and data analytics."
+
+        }
+
+    };
+
+
+
+    function openTalent(id) {
+
+        const data =
+            talent[id];
+
+
+        if (!data) return;
+
+
+        document
+            .getElementById("talentLogo")
+            .innerText =
+            data.initials;
+
+
+        document
+            .getElementById("talentName")
+            .innerText =
+            data.name;
+
+
+        document
+            .getElementById("talentEducation")
+            .innerText =
+            data.education;
+
+
+        document
+            .getElementById("talentMatch")
+            .innerText =
+            data.match;
+
+
+        document
+            .getElementById("talentDescription")
+            .innerText =
+            data.description;
+
+
+        showPage(
+            "talent-detail"
+        );
+
+    }
+
+
+
+    /* ============================================
+       MOBILE SIDEBAR
+    ============================================ */
+
+    function toggleSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList.toggle("open");
+
+    }
+
+
+    function closeSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList.remove("open");
+
+    }
+
+
+
+    /* ============================================
+       ESCAPE
+    ============================================ */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>

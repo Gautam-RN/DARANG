@@ -1,0 +1,3056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSathi — Institution</title>
+
+    <style>
+        :root {
+            --bg: #07090d;
+            --sidebar: #0b0e14;
+            --card: #10141c;
+            --card-2: #141923;
+            --border: #202733;
+            --text: #f4f7fb;
+            --muted: #8c96a8;
+            --accent: #6c63ff;
+            --accent-2: #8b85ff;
+            --green: #35d07f;
+            --yellow: #f3c969;
+            --red: #ff6b78;
+            --cyan: #35c9ff;
+            --shadow: 0 18px 50px rgba(0,0,0,.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 255px;
+            height: 100vh;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            padding: 24px 14px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 12px 28px;
+        }
+
+        .brand-logo {
+            width: 39px;
+            height: 39px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #9b96ff);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 8px 25px rgba(108,99,255,.3);
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            letter-spacing: -.5px;
+        }
+
+        .brand span {
+            color: var(--accent-2);
+        }
+
+        .section-label {
+            color: #596273;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            padding: 13px 13px 8px;
+        }
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            padding: 11px 13px;
+            border-radius: 10px;
+            margin-bottom: 3px;
+            transition: .2s;
+            font-size: 13px;
+            border: none;
+            background: transparent;
+            text-align: left;
+        }
+
+        .nav-item:hover {
+            background: #151a24;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(108,99,255,.14);
+            color: white;
+            border: 1px solid rgba(108,99,255,.2);
+        }
+
+        .nav-icon {
+            width: 21px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .profile-mini {
+            position: absolute;
+            bottom: 18px;
+            left: 14px;
+            right: 14px;
+            background: #11151d;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #252c3a, #161b25);
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid #303847;
+        }
+
+        .profile-mini strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .profile-mini small {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 255px;
+            padding: 28px 34px 50px;
+            min-height: 100vh;
+        }
+
+        .mobile-header {
+            display: none;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            font-size: 27px;
+            letter-spacing: -.7px;
+        }
+
+        .topbar p {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 39px;
+            height: 39px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: white;
+            position: relative;
+        }
+
+        .notification-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--red);
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+
+        .primary-btn {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            font-weight: 700;
+            font-size: 12px;
+            box-shadow: 0 8px 22px rgba(108,99,255,.22);
+        }
+
+        .secondary-btn {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 15px;
+            background: var(--card);
+            color: white;
+            font-size: 12px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn .25s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= CARDS ================= */
+
+        .grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(4, 1fr);
+            margin-bottom: 22px;
+        }
+
+        .stat-card,
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card {
+            padding: 19px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            right: -25px;
+            top: -25px;
+            background: rgba(108,99,255,.08);
+            border-radius: 50%;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 9px;
+        }
+
+        .stat-value {
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .stat-change {
+            margin-top: 8px;
+            font-size: 10px;
+        }
+
+        .positive {
+            color: var(--green);
+        }
+
+        .warning {
+            color: var(--yellow);
+        }
+
+        .danger {
+            color: var(--red);
+        }
+
+        .cyan {
+            color: var(--cyan);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 18px;
+        }
+
+        .card {
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .card-header h3 {
+            font-size: 15px;
+        }
+
+        .card-header span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            padding: 26px;
+            border-radius: 17px;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(108,99,255,.18), transparent 32%),
+                linear-gradient(135deg, #111621, #0d1017);
+            border: 1px solid #242b39;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero small {
+            color: var(--accent-2);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+        }
+
+        .hero h2 {
+            font-size: 23px;
+            margin: 9px 0;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: 19px;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-item {
+            margin-bottom: 18px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        .progress-top span:last-child {
+            color: var(--muted);
+        }
+
+        .progress {
+            height: 7px;
+            background: #202631;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent), var(--cyan));
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            color: #687286;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 13px 10px;
+            font-size: 11px;
+            border-bottom: 1px solid #181e27;
+            color: #dce1e9;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .person {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .person-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            display: grid;
+            place-items: center;
+            background: #1b2230;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .person strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .person small {
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 7px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .badge.green {
+            background: rgba(53,208,127,.11);
+            color: var(--green);
+        }
+
+        .badge.yellow {
+            background: rgba(243,201,105,.1);
+            color: var(--yellow);
+        }
+
+        .badge.red {
+            background: rgba(255,107,120,.1);
+            color: var(--red);
+        }
+
+        .badge.blue {
+            background: rgba(53,201,255,.1);
+            color: var(--cyan);
+        }
+
+        .badge.purple {
+            background: rgba(108,99,255,.13);
+            color: var(--accent-2);
+        }
+
+        /* ================= QUICK ACTIONS ================= */
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .quick-action {
+            background: #141923;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding: 14px;
+            color: white;
+            text-align: left;
+            transition: .2s;
+        }
+
+        .quick-action:hover {
+            transform: translateY(-2px);
+            border-color: #343c4c;
+        }
+
+        .quick-action .qa-icon {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .quick-action strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .quick-action small {
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.4;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 210px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 11px 13px;
+            color: white;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .filter {
+            background: var(--card);
+            color: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            outline: none;
+            font-size: 11px;
+        }
+
+        /* ================= OPPORTUNITY CARDS ================= */
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .opportunity-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+            transition: .2s;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-3px);
+            border-color: #343c4d;
+        }
+
+        .opp-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .company-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #1c2230;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .opportunity-card h3 {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .opportunity-card p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 14px 0;
+        }
+
+        .tag {
+            background: #181e28;
+            border: 1px solid #252c38;
+            color: #aab3c3;
+            border-radius: 6px;
+            padding: 4px 7px;
+            font-size: 8px;
+        }
+
+        .opp-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 13px;
+        }
+
+        .opp-footer small {
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        /* ================= ANALYTICS ================= */
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 16px;
+        }
+
+        .chart {
+            height: 220px;
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            padding-top: 20px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent), #3a355e);
+            border-radius: 7px 7px 2px 2px;
+            position: relative;
+            min-width: 20px;
+        }
+
+        .bar span {
+            position: absolute;
+            bottom: -21px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-row span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .metric-row strong {
+            font-size: 14px;
+        }
+
+        /* ================= DETAIL ================= */
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            margin-bottom: 18px;
+            font-size: 11px;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 22px;
+        }
+
+        .detail-title {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .large-icon {
+            width: 58px;
+            height: 58px;
+            background: #1a2030;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .detail-title h2 {
+            font-size: 21px;
+        }
+
+        .detail-title p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1.5fr .8fr;
+            gap: 18px;
+        }
+
+        .detail-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-section h3 {
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .detail-section p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* ================= NOTIFICATIONS ================= */
+
+        .notification {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notification:last-child {
+            border: none;
+        }
+
+        .notification-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            background: #1a2030;
+            display: grid;
+            place-items: center;
+        }
+
+        .notification strong {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .notification p {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .notification small {
+            color: #586273;
+            display: block;
+            margin-top: 5px;
+            font-size: 8px;
+        }
+
+        /* ================= PROFILE ================= */
+
+        .profile-banner {
+            padding: 27px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #131925, #0d1118);
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .institution-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .institution-logo {
+            width: 68px;
+            height: 68px;
+            border-radius: 17px;
+            background: linear-gradient(135deg, var(--accent), #36306f);
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .institution-info h2 {
+            font-size: 20px;
+        }
+
+        .institution-info p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .info-box {
+            padding: 16px;
+            border-radius: 11px;
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .info-box small {
+            color: var(--muted);
+            display: block;
+            font-size: 9px;
+            margin-bottom: 5px;
+        }
+
+        .info-box strong {
+            font-size: 11px;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(7px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 520px;
+            background: #10141c;
+            border: 1px solid #2a3240;
+            border-radius: 17px;
+            padding: 24px;
+            box-shadow: 0 30px 100px rgba(0,0,0,.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #aeb7c6;
+            font-size: 10px;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #0b0e14;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px;
+            border-radius: 9px;
+            outline: none;
+            font-size: 11px;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #171c26;
+            border: 1px solid #303847;
+            padding: 13px 17px;
+            border-radius: 10px;
+            font-size: 11px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: .3s;
+            z-index: 3000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 1100px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .opportunity-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid,
+            .analytics-grid,
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 760px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: .3s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .mobile-header button {
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--border);
+                background: var(--card);
+                color: white;
+                border-radius: 9px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .top-actions .secondary-btn {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-banner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar h1 {
+                font-size: 22px;
+            }
+
+            .hero h2 {
+                font-size: 19px;
+            }
+
+            .detail-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">E</div>
+        <h2>Edu<span>Sathi</span></h2>
+    </div>
+
+    <div class="section-label">Overview</div>
+
+    <button class="nav-item active" onclick="showPage('dashboard', this)">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+    </button>
+
+    <button class="nav-item" onclick="showPage('analytics', this)">
+        <span class="nav-icon">◫</span>
+        Analytics
+    </button>
+
+    <div class="section-label">Institution</div>
+
+    <button class="nav-item" onclick="showPage('students', this)">
+        <span class="nav-icon">◉</span>
+        Students
+    </button>
+
+    <button class="nav-item" onclick="showPage('faculty', this)">
+        <span class="nav-icon">♙</span>
+        Faculty
+    </button>
+
+    <button class="nav-item" onclick="showPage('skills', this)">
+        <span class="nav-icon">◇</span>
+        Skill Mapping
+    </button>
+
+    <button class="nav-item" onclick="showPage('placements', this)">
+        <span class="nav-icon">↗</span>
+        Placements
+    </button>
+
+    <div class="section-label">Industry Connect</div>
+
+    <button class="nav-item" onclick="showPage('industry', this)">
+        <span class="nav-icon">▣</span>
+        Industry Partners
+    </button>
+
+    <button class="nav-item" onclick="showPage('opportunities', this)">
+        <span class="nav-icon">✦</span>
+        Opportunities
+    </button>
+
+    <button class="nav-item" onclick="showPage('programs', this)">
+        <span class="nav-icon">▤</span>
+        Learning Programs
+    </button>
+
+    <button class="nav-item" onclick="showPage('collaborations', this)">
+        <span class="nav-icon">∞</span>
+        Collaborations
+    </button>
+
+    <div class="section-label">Account</div>
+
+    <button class="nav-item" onclick="showPage('notifications', this)">
+        <span class="nav-icon">♢</span>
+        Notifications
+    </button>
+
+    <button class="nav-item" onclick="showPage('profile', this)">
+        <span class="nav-icon">⚙</span>
+        Institution Profile
+    </button>
+
+    <div class="profile-mini">
+        <div class="avatar">MEC</div>
+        <div>
+            <strong>Model Engineering College</strong>
+            <small>Institution Admin</small>
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <div class="mobile-header">
+        <button onclick="toggleSidebar()">☰</button>
+        <strong>EduSathi</strong>
+        <button onclick="showPage('notifications')">♢</button>
+    </div>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section class="page active" id="dashboard">
+
+        <div class="topbar">
+            <div>
+                <h1>Institution Dashboard</h1>
+                <p>Monitor student readiness, faculty engagement and industry connections.</p>
+            </div>
+
+            <div class="top-actions">
+                <button class="icon-btn" onclick="showPage('notifications')">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+
+                <button class="primary-btn" onclick="openPartnerModal()">
+                    + Add Industry Partner
+                </button>
+            </div>
+        </div>
+
+
+        <div class="hero">
+
+            <small>Institution Command Center</small>
+
+            <h2>Build a stronger academia–industry ecosystem.</h2>
+
+            <p>
+                EduSathi gives your institution a single view of student skills,
+                placement readiness, industry opportunities, faculty engagement
+                and collaborative programs.
+            </p>
+
+            <div class="hero-actions">
+                <button class="primary-btn" onclick="showPage('skills')">
+                    View Skill Intelligence
+                </button>
+
+                <button class="secondary-btn" onclick="showPage('analytics')">
+                    View Analytics
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="grid stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-label">Total Students</div>
+                <div class="stat-value">4,286</div>
+                <div class="stat-change positive">↑ 8.4% this year</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Placement Readiness</div>
+                <div class="stat-value">76%</div>
+                <div class="stat-change positive">↑ 6.2% improvement</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Industry Partners</div>
+                <div class="stat-value">38</div>
+                <div class="stat-change cyan">+7 new partners</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Active Opportunities</div>
+                <div class="stat-value">64</div>
+                <div class="stat-change warning">12 closing soon</div>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Student Placement Readiness</h3>
+                    <span>Current academic year</span>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>Overall Readiness</span>
+                        <span>76%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:76%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>Technical Skills</span>
+                        <span>81%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:81%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>Communication</span>
+                        <span>72%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:72%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>Industry Exposure</span>
+                        <span>63%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:63%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>Project Experience</span>
+                        <span>69%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:69%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Quick Actions</h3>
+                </div>
+
+                <div class="quick-grid">
+
+                    <button class="quick-action" onclick="openOpportunityModal()">
+                        <div class="qa-icon">✦</div>
+                        <strong>Create Opportunity</strong>
+                        <small>Publish an internship, job or apprenticeship.</small>
+                    </button>
+
+                    <button class="quick-action" onclick="showPage('students')">
+                        <div class="qa-icon">◉</div>
+                        <strong>View Students</strong>
+                        <small>Explore skills and placement readiness.</small>
+                    </button>
+
+                    <button class="quick-action" onclick="showPage('industry')">
+                        <div class="qa-icon">▣</div>
+                        <strong>Find Partners</strong>
+                        <small>Connect with companies and organizations.</small>
+                    </button>
+
+                    <button class="quick-action" onclick="showPage('collaborations')">
+                        <div class="qa-icon">∞</div>
+                        <strong>Start Collaboration</strong>
+                        <small>Launch projects with industry or faculty.</small>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card" style="margin-top:18px">
+
+            <div class="card-header">
+                <h3>Recent Industry Activity</h3>
+                <span>View all →</span>
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Partner</th>
+                            <th>Activity</th>
+                            <th>Students</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">NT</div>
+                                    <div>
+                                        <strong>NovaTech Systems</strong>
+                                        <small>Technology</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Campus recruitment</td>
+                            <td>42</td>
+                            <td><span class="badge green">Active</span></td>
+                            <td>Today</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">DS</div>
+                                    <div>
+                                        <strong>DataSphere Labs</strong>
+                                        <small>AI & Analytics</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Industry workshop</td>
+                            <td>120</td>
+                            <td><span class="badge blue">Scheduled</span></td>
+                            <td>18 Sep</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">AR</div>
+                                    <div>
+                                        <strong>Arc Robotics</strong>
+                                        <small>Robotics</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Live project</td>
+                            <td>18</td>
+                            <td><span class="badge purple">In Progress</span></td>
+                            <td>12 Sep</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ANALYTICS ================= -->
+
+    <section class="page" id="analytics">
+
+        <div class="topbar">
+            <div>
+                <h1>Institution Analytics</h1>
+                <p>Measure the impact of your academia–industry ecosystem.</p>
+            </div>
+        </div>
+
+        <div class="grid stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-label">Placement Rate</div>
+                <div class="stat-value">91.4%</div>
+                <div class="stat-change positive">↑ 4.8%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Industry Engagement</div>
+                <div class="stat-value">84%</div>
+                <div class="stat-change positive">↑ 11.2%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Student Skill Growth</div>
+                <div class="stat-value">+18%</div>
+                <div class="stat-change cyan">Year over year</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Collaborative Projects</div>
+                <div class="stat-value">27</div>
+                <div class="stat-change positive">+9 this year</div>
+            </div>
+
+        </div>
+
+
+        <div class="analytics-grid">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Placement Trend</h3>
+                    <span>Last 6 months</span>
+                </div>
+
+                <div class="chart">
+
+                    <div class="bar" style="height:48%">
+                        <span>Apr</span>
+                    </div>
+
+                    <div class="bar" style="height:62%">
+                        <span>May</span>
+                    </div>
+
+                    <div class="bar" style="height:55%">
+                        <span>Jun</span>
+                    </div>
+
+                    <div class="bar" style="height:72%">
+                        <span>Jul</span>
+                    </div>
+
+                    <div class="bar" style="height:84%">
+                        <span>Aug</span>
+                    </div>
+
+                    <div class="bar" style="height:94%">
+                        <span>Sep</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Key Metrics</h3>
+                </div>
+
+                <div class="metric-row">
+                    <span>Students assessed</span>
+                    <strong>3,842</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Skill gaps identified</span>
+                    <strong>1,276</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Internship applications</span>
+                    <strong>2,418</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Industry mentors</span>
+                    <strong>96</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Faculty collaborations</span>
+                    <strong>34</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card" style="margin-top:18px">
+
+            <div class="card-header">
+                <h3>Top Skill Demand vs Availability</h3>
+                <span>Institution-wide</span>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-top">
+                    <span>Python</span>
+                    <span>Demand 89% · Availability 82%</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width:82%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-top">
+                    <span>Data Structures & Algorithms</span>
+                    <span>Demand 94% · Availability 61%</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width:61%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-top">
+                    <span>Embedded Systems</span>
+                    <span>Demand 72% · Availability 68%</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width:68%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-top">
+                    <span>AI / Machine Learning</span>
+                    <span>Demand 91% · Availability 54%</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width:54%"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STUDENTS ================= -->
+
+    <section class="page" id="students">
+
+        <div class="topbar">
+            <div>
+                <h1>Student Intelligence</h1>
+                <p>Search students by skills, branch, readiness and career goals.</p>
+            </div>
+        </div>
+
+        <div class="toolbar">
+
+            <input
+                class="search-box"
+                id="studentSearch"
+                placeholder="Search students or skills..."
+                onkeyup="filterStudents()"
+            >
+
+            <select class="filter" id="studentBranch" onchange="filterStudents()">
+                <option value="">All Branches</option>
+                <option value="ECE">ECE</option>
+                <option value="CSE">CSE</option>
+                <option value="EEE">EEE</option>
+                <option value="ME">Mechanical</option>
+            </select>
+
+            <select class="filter">
+                <option>All Readiness</option>
+                <option>80%+</option>
+                <option>60–80%</option>
+                <option>Below 60%</option>
+            </select>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="table-wrap">
+
+                <table id="studentTable">
+
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Branch</th>
+                            <th>Top Skills</th>
+                            <th>Readiness</th>
+                            <th>Opportunities</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr class="student-row">
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">AR</div>
+                                    <div>
+                                        <strong>Arjun R</strong>
+                                        <small>EC2024012</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>ECE</td>
+                            <td>Python · Embedded · C</td>
+                            <td><strong>88%</strong></td>
+                            <td>6</td>
+                            <td><span class="badge green">Ready</span></td>
+                        </tr>
+
+                        <tr class="student-row">
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">NS</div>
+                                    <div>
+                                        <strong>Neha S</strong>
+                                        <small>CS2024031</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>CSE</td>
+                            <td>Python · ML · SQL</td>
+                            <td><strong>92%</strong></td>
+                            <td>9</td>
+                            <td><span class="badge green">Ready</span></td>
+                        </tr>
+
+                        <tr class="student-row">
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">VK</div>
+                                    <div>
+                                        <strong>Vishnu K</strong>
+                                        <small>EC2024058</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>ECE</td>
+                            <td>VLSI · Verilog · PCB</td>
+                            <td><strong>73%</strong></td>
+                            <td>4</td>
+                            <td><span class="badge blue">Developing</span></td>
+                        </tr>
+
+                        <tr class="student-row">
+                            <td>
+                                <div class="person">
+                                    <div class="person-avatar">AM</div>
+                                    <div>
+                                        <strong>Ananya M</strong>
+                                        <small>ME2024022</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>ME</td>
+                            <td>CAD · Robotics · Python</td>
+                            <td><strong>67%</strong></td>
+                            <td>3</td>
+                            <td><span class="badge yellow">Needs Support</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FACULTY ================= -->
+
+    <section class="page" id="faculty">
+
+        <div class="topbar">
+            <div>
+                <h1>Faculty Engagement</h1>
+                <p>Track faculty development, industry exposure and collaborations.</p>
+            </div>
+
+            <button class="primary-btn" onclick="openCollaborationModal()">
+                + New Collaboration
+            </button>
+        </div>
+
+
+        <div class="grid stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-label">Faculty Members</div>
+                <div class="stat-value">218</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Industry Engaged</div>
+                <div class="stat-value">74%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Active FDPs</div>
+                <div class="stat-value">12</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Research Projects</div>
+                <div class="stat-value">34</div>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>Faculty Activities</h3>
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Faculty</th>
+                            <th>Department</th>
+                            <th>Activity</th>
+                            <th>Industry Partner</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td><strong>Dr. Meera Nair</strong></td>
+                            <td>ECE</td>
+                            <td>Faculty Internship</td>
+                            <td>NovaTech Systems</td>
+                            <td><span class="badge green">Active</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Prof. Rahul Menon</strong></td>
+                            <td>CSE</td>
+                            <td>AI Research</td>
+                            <td>DataSphere Labs</td>
+                            <td><span class="badge purple">In Progress</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Dr. Anjali P</strong></td>
+                            <td>EEE</td>
+                            <td>Industry FDP</td>
+                            <td>VoltEdge Energy</td>
+                            <td><span class="badge blue">Scheduled</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SKILLS ================= -->
+
+    <section class="page" id="skills">
+
+        <div class="topbar">
+            <div>
+                <h1>Institution Skill Mapping</h1>
+                <p>Identify the gap between industry demand and student capability.</p>
+            </div>
+
+            <button class="primary-btn" onclick="showToast('Skill assessment campaign created')">
+                + Launch Assessment
+            </button>
+        </div>
+
+
+        <div class="analytics-grid">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Critical Skill Gaps</h3>
+                    <span>Priority areas</span>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>AI / ML</span>
+                        <span>46% gap</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:46%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>DSA</span>
+                        <span>39% gap</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:39%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>Cloud Computing</span>
+                        <span>34% gap</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:34%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>System Design</span>
+                        <span>31% gap</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:31%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Assessment Coverage</h3>
+                </div>
+
+                <div class="metric-row">
+                    <span>Students assessed</span>
+                    <strong>89.6%</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Profiles completed</span>
+                    <strong>94.2%</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Skill credentials</span>
+                    <strong>8,721</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Learning plans generated</span>
+                    <strong>2,841</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card" style="margin-top:18px">
+
+            <div class="card-header">
+                <h3>Recommended Institutional Actions</h3>
+            </div>
+
+            <div class="quick-grid">
+
+                <button class="quick-action" onclick="showToast('AI/ML bootcamp request created')">
+                    <div class="qa-icon">◈</div>
+                    <strong>Launch AI/ML Bootcamp</strong>
+                    <small>High industry demand and large student skill gap.</small>
+                </button>
+
+                <button class="quick-action" onclick="showToast('DSA learning program created')">
+                    <div class="qa-icon">◇</div>
+                    <strong>DSA Accelerator</strong>
+                    <small>Improve coding interview readiness.</small>
+                </button>
+
+                <button class="quick-action" onclick="showToast('Industry mentor request sent')">
+                    <div class="qa-icon">∞</div>
+                    <strong>Request Mentors</strong>
+                    <small>Connect students with industry professionals.</small>
+                </button>
+
+                <button class="quick-action" onclick="showToast('Industry workshop request created')">
+                    <div class="qa-icon">▤</div>
+                    <strong>Request Workshop</strong>
+                    <small>Ask partners to conduct targeted training.</small>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PLACEMENTS ================= -->
+
+    <section class="page" id="placements">
+
+        <div class="topbar">
+            <div>
+                <h1>Placement Management</h1>
+                <p>Track recruitment drives and student placement outcomes.</p>
+            </div>
+
+            <button class="primary-btn" onclick="showToast('Placement drive created')">
+                + Create Drive
+            </button>
+        </div>
+
+
+        <div class="grid stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-label">Offers Received</div>
+                <div class="stat-value">1,248</div>
+                <div class="stat-change positive">↑ 12%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Students Placed</div>
+                <div class="stat-value">1,094</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Active Drives</div>
+                <div class="stat-value">17</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Highest Package</div>
+                <div class="stat-value">₹42L</div>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>Recruitment Drives</h3>
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Applicants</th>
+                            <th>Shortlisted</th>
+                            <th>Offers</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>NovaTech Systems</td>
+                            <td>Software Engineer</td>
+                            <td>386</td>
+                            <td>82</td>
+                            <td>24</td>
+                            <td><span class="badge green">Ongoing</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Arc Robotics</td>
+                            <td>Embedded Engineer</td>
+                            <td>214</td>
+                            <td>48</td>
+                            <td>12</td>
+                            <td><span class="badge blue">Interview</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>DataSphere Labs</td>
+                            <td>ML Intern</td>
+                            <td>172</td>
+                            <td>36</td>
+                            <td>8</td>
+                            <td><span class="badge yellow">Applications</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= INDUSTRY ================= -->
+
+    <section class="page" id="industry">
+
+        <div class="topbar">
+            <div>
+                <h1>Industry Partners</h1>
+                <p>Build and manage your institution's industry ecosystem.</p>
+            </div>
+
+            <button class="primary-btn" onclick="openPartnerModal()">
+                + Add Partner
+            </button>
+        </div>
+
+
+        <div class="opportunity-grid">
+
+            <div class="opportunity-card">
+
+                <div class="opp-top">
+                    <div class="company-icon">NT</div>
+                    <span class="badge green">Verified</span>
+                </div>
+
+                <h3>NovaTech Systems</h3>
+
+                <p>Technology & Engineering</p>
+
+                <div class="tags">
+                    <span class="tag">Recruitment</span>
+                    <span class="tag">Internships</span>
+                    <span class="tag">Projects</span>
+                </div>
+
+                <button class="secondary-btn" style="width:100%" onclick="showToast('NovaTech partner profile opened')">
+                    View Partnership
+                </button>
+
+            </div>
+
+
+            <div class="opportunity-card">
+
+                <div class="opp-top">
+                    <div class="company-icon">DS</div>
+                    <span class="badge green">Verified</span>
+                </div>
+
+                <h3>DataSphere Labs</h3>
+
+                <p>AI, Data & Cloud</p>
+
+                <div class="tags">
+                    <span class="tag">AI Programs</span>
+                    <span class="tag">FDP</span>
+                    <span class="tag">Research</span>
+                </div>
+
+                <button class="secondary-btn" style="width:100%" onclick="showToast('DataSphere partner profile opened')">
+                    View Partnership
+                </button>
+
+            </div>
+
+
+            <div class="opportunity-card">
+
+                <div class="opp-top">
+                    <div class="company-icon">AR</div>
+                    <span class="badge green">Verified</span>
+                </div>
+
+                <h3>Arc Robotics</h3>
+
+                <p>Robotics & Automation</p>
+
+                <div class="tags">
+                    <span class="tag">Live Projects</span>
+                    <span class="tag">Mentorship</span>
+                    <span class="tag">Research</span>
+                </div>
+
+                <button class="secondary-btn" style="width:100%" onclick="showToast('Arc Robotics partner profile opened')">
+                    View Partnership
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= OPPORTUNITIES ================= -->
+
+    <section class="page" id="opportunities">
+
+        <div class="topbar">
+            <div>
+                <h1>Opportunities</h1>
+                <p>Internships, jobs, apprenticeships and industry programs.</p>
+            </div>
+
+            <button class="primary-btn" onclick="openOpportunityModal()">
+                + Create Opportunity
+            </button>
+        </div>
+
+
+        <div class="toolbar">
+
+            <input class="search-box"
+                   id="opportunitySearch"
+                   placeholder="Search opportunities..."
+                   onkeyup="filterOpportunities()">
+
+            <select class="filter">
+                <option>All Types</option>
+                <option>Internship</option>
+                <option>Job</option>
+                <option>Apprenticeship</option>
+            </select>
+
+            <select class="filter">
+                <option>All Departments</option>
+                <option>CSE</option>
+                <option>ECE</option>
+                <option>EEE</option>
+                <option>Mechanical</option>
+            </select>
+
+        </div>
+
+
+        <div class="opportunity-grid" id="opportunityGrid">
+
+            <div class="opportunity-card opportunity-item">
+
+                <div class="opp-top">
+                    <div class="company-icon">NT</div>
+                    <span class="badge purple">Internship</span>
+                </div>
+
+                <h3>Embedded Systems Intern</h3>
+
+                <p>NovaTech Systems · 6 months</p>
+
+                <div class="tags">
+                    <span class="tag">C</span>
+                    <span class="tag">Embedded</span>
+                    <span class="tag">STM32</span>
+                </div>
+
+                <div class="opp-footer">
+                    <small>42 applicants</small>
+                    <button class="secondary-btn"
+                            onclick="openOpportunity('Embedded Systems Intern')">
+                        View
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="opportunity-card opportunity-item">
+
+                <div class="opp-top">
+                    <div class="company-icon">DS</div>
+                    <span class="badge purple">Internship</span>
+                </div>
+
+                <h3>AI Research Intern</h3>
+
+                <p>DataSphere Labs · 4 months</p>
+
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">ML</span>
+                    <span class="tag">TensorFlow</span>
+                </div>
+
+                <div class="opp-footer">
+                    <small>67 applicants</small>
+                    <button class="secondary-btn"
+                            onclick="openOpportunity('AI Research Intern')">
+                        View
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="opportunity-card opportunity-item">
+
+                <div class="opp-top">
+                    <div class="company-icon">AR</div>
+                    <span class="badge blue">Project</span>
+                </div>
+
+                <h3>Smart Robotics Project</h3>
+
+                <p>Arc Robotics · Live Project</p>
+
+                <div class="tags">
+                    <span class="tag">Robotics</span>
+                    <span class="tag">ROS</span>
+                    <span class="tag">C++</span>
+                </div>
+
+                <div class="opp-footer">
+                    <small>18 seats</small>
+                    <button class="secondary-btn"
+                            onclick="openOpportunity('Smart Robotics Project')">
+                        View
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROGRAMS ================= -->
+
+    <section class="page" id="programs">
+
+        <div class="topbar">
+            <div>
+                <h1>Industry Learning Programs</h1>
+                <p>Bridge skill gaps through structured industry-led learning.</p>
+            </div>
+
+            <button class="primary-btn"
+                    onclick="showToast('Program request submitted')">
+                + Request Program
+            </button>
+        </div>
+
+
+        <div class="opportunity-grid">
+
+            <div class="opportunity-card">
+                <div class="opp-top">
+                    <div class="company-icon">AI</div>
+                    <span class="badge green">Active</span>
+                </div>
+
+                <h3>Applied AI Accelerator</h3>
+                <p>8-week industry learning program</p>
+
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">ML</span>
+                    <span class="tag">GenAI</span>
+                </div>
+
+                <div class="opp-footer">
+                    <small>84 students</small>
+                    <span class="positive">78% complete</span>
+                </div>
+            </div>
+
+
+            <div class="opportunity-card">
+                <div class="opp-top">
+                    <div class="company-icon">WD</div>
+                    <span class="badge blue">Upcoming</span>
+                </div>
+
+                <h3>Modern Web Engineering</h3>
+                <p>Industry-led practical training</p>
+
+                <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node</span>
+                    <span class="tag">Cloud</span>
+                </div>
+
+                <div class="opp-footer">
+                    <small>120 seats</small>
+                    <span class="cyan">Starts 22 Sep</span>
+                </div>
+            </div>
+
+
+            <div class="opportunity-card">
+                <div class="opp-top">
+                    <div class="company-icon">ES</div>
+                    <span class="badge purple">Proposed</span>
+                </div>
+
+                <h3>Embedded Systems Lab</h3>
+                <p>Industry project-based program</p>
+
+                <div class="tags">
+                    <span class="tag">STM32</span>
+                    <span class="tag">PCB</span>
+                    <span class="tag">IoT</span>
+                </div>
+
+                <div class="opp-footer">
+                    <small>60 seats</small>
+                    <span class="warning">Pending approval</span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= COLLABORATIONS ================= -->
+
+    <section class="page" id="collaborations">
+
+        <div class="topbar">
+            <div>
+                <h1>Collaborations</h1>
+                <p>Manage research, consultancy, live projects and mentorship.</p>
+            </div>
+
+            <button class="primary-btn" onclick="openCollaborationModal()">
+                + Start Collaboration
+            </button>
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>Active Collaborations</h3>
+            </div>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Partner</th>
+                            <th>Type</th>
+                            <th>Participants</th>
+                            <th>Progress</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td><strong>Autonomous Mobility Research</strong></td>
+                            <td>Arc Robotics</td>
+                            <td>Research</td>
+                            <td>4 Faculty · 12 Students</td>
+                            <td>68%</td>
+                            <td><span class="badge purple">Active</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>AI-Based Predictive Analytics</strong></td>
+                            <td>DataSphere Labs</td>
+                            <td>Live Project</td>
+                            <td>2 Faculty · 18 Students</td>
+                            <td>45%</td>
+                            <td><span class="badge blue">Active</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Industrial IoT Consultancy</strong></td>
+                            <td>NovaTech Systems</td>
+                            <td>Consultancy</td>
+                            <td>3 Faculty</td>
+                            <td>82%</td>
+                            <td><span class="badge green">Near Completion</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= NOTIFICATIONS ================= -->
+
+    <section class="page" id="notifications">
+
+        <div class="topbar">
+            <div>
+                <h1>Notifications</h1>
+                <p>Important updates from your EduSathi ecosystem.</p>
+            </div>
+        </div>
+
+
+        <div class="card">
+
+            <div class="notification">
+
+                <div class="notification-icon">✦</div>
+
+                <div>
+                    <strong>NovaTech Systems shortlisted 24 students</strong>
+                    <p>
+                        The Embedded Systems recruitment drive has moved to the
+                        interview stage.
+                    </p>
+                    <small>25 minutes ago</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification">
+
+                <div class="notification-icon">∞</div>
+
+                <div>
+                    <strong>New collaboration request</strong>
+                    <p>
+                        Arc Robotics has proposed a robotics research collaboration.
+                    </p>
+                    <small>2 hours ago</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification">
+
+                <div class="notification-icon">◇</div>
+
+                <div>
+                    <strong>Skill gap alert</strong>
+                    <p>
+                        AI/ML remains the highest-priority institutional skill gap.
+                    </p>
+                    <small>Yesterday</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification">
+
+                <div class="notification-icon">▤</div>
+
+                <div>
+                    <strong>Faculty FDP approved</strong>
+                    <p>
+                        The Industrial AI Faculty Development Program has been approved.
+                    </p>
+                    <small>2 days ago</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <section class="page" id="profile">
+
+        <div class="topbar">
+            <div>
+                <h1>Institution Profile</h1>
+                <p>Manage your institution's EduSathi presence.</p>
+            </div>
+
+            <button class="primary-btn"
+                    onclick="showToast('Institution profile saved')">
+                Save Changes
+            </button>
+        </div>
+
+
+        <div class="profile-banner">
+
+            <div class="institution-info">
+
+                <div class="institution-logo">M</div>
+
+                <div>
+                    <h2>Model Engineering College</h2>
+                    <p>Engineering & Technology · Kerala, India</p>
+                </div>
+
+            </div>
+
+            <span class="badge green">Verified Institution</span>
+
+        </div>
+
+
+        <div class="profile-details">
+
+            <div class="info-box">
+                <small>Institution Type</small>
+                <strong>Engineering College</strong>
+            </div>
+
+            <div class="info-box">
+                <small>Location</small>
+                <strong>Thrikkakara, Kerala</strong>
+            </div>
+
+            <div class="info-box">
+                <small>Students</small>
+                <strong>4,286</strong>
+            </div>
+
+            <div class="info-box">
+                <small>Faculty</small>
+                <strong>218</strong>
+            </div>
+
+            <div class="info-box">
+                <small>Industry Partners</small>
+                <strong>38</strong>
+            </div>
+
+            <div class="info-box">
+                <small>Established</small>
+                <strong>1989</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h3 id="modalTitle">Create</h3>
+            <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+    /* ================= NAVIGATION ================= */
+
+    function showPage(pageId, element = null) {
+
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        const target = document.getElementById(pageId);
+
+        if (target) {
+            target.classList.add("active");
+        }
+
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        if (element) {
+            element.classList.add("active");
+        } else {
+
+            document.querySelectorAll(".nav-item").forEach(item => {
+
+                const onclick = item.getAttribute("onclick") || "";
+
+                if (onclick.includes("'" + pageId + "'")) {
+                    item.classList.add("active");
+                }
+
+            });
+
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        document.getElementById("sidebar").classList.remove("open");
+    }
+
+
+    /* ================= MOBILE SIDEBAR ================= */
+
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+    }
+
+
+    /* ================= MODAL ================= */
+
+    function openOpportunityModal() {
+
+        document.getElementById("modalTitle").innerText =
+            "Create New Opportunity";
+
+        document.getElementById("modalContent").innerHTML = `
+
+            <div class="form-group">
+                <label>Opportunity Title</label>
+                <input class="form-input"
+                       placeholder="e.g. Embedded Systems Intern">
+            </div>
+
+            <div class="form-group">
+                <label>Opportunity Type</label>
+                <select class="form-input">
+                    <option>Internship</option>
+                    <option>Full-time Job</option>
+                    <option>Apprenticeship</option>
+                    <option>Live Project</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Required Skills</label>
+                <input class="form-input"
+                       placeholder="Python, C, Embedded Systems...">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-input"
+                          placeholder="Describe the opportunity..."></textarea>
+            </div>
+
+            <button class="primary-btn"
+                    style="width:100%"
+                    onclick="submitOpportunity()">
+                Publish Opportunity
+            </button>
+
+        `;
+
+        openModal();
+    }
+
+
+    function openPartnerModal() {
+
+        document.getElementById("modalTitle").innerText =
+            "Add Industry Partner";
+
+        document.getElementById("modalContent").innerHTML = `
+
+            <div class="form-group">
+                <label>Company Name</label>
+                <input class="form-input"
+                       placeholder="Company / Organization">
+            </div>
+
+            <div class="form-group">
+                <label>Industry</label>
+                <input class="form-input"
+                       placeholder="Technology, Automotive, Finance...">
+            </div>
+
+            <div class="form-group">
+                <label>Collaboration Interest</label>
+                <select class="form-input">
+                    <option>Recruitment</option>
+                    <option>Internships</option>
+                    <option>Research</option>
+                    <option>Training</option>
+                    <option>Consultancy</option>
+                    <option>Multiple</option>
+                </select>
+            </div>
+
+            <button class="primary-btn"
+                    style="width:100%"
+                    onclick="addPartner()">
+                Send Partnership Request
+            </button>
+
+        `;
+
+        openModal();
+    }
+
+
+    function openCollaborationModal() {
+
+        document.getElementById("modalTitle").innerText =
+            "Start Collaboration";
+
+        document.getElementById("modalContent").innerHTML = `
+
+            <div class="form-group">
+                <label>Collaboration Title</label>
+                <input class="form-input"
+                       placeholder="e.g. AI Research Project">
+            </div>
+
+            <div class="form-group">
+                <label>Collaboration Type</label>
+
+                <select class="form-input">
+                    <option>Research</option>
+                    <option>Live Project</option>
+                    <option>Consultancy</option>
+                    <option>Mentorship</option>
+                    <option>Workshop</option>
+                    <option>Faculty Internship</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Industry Partner</label>
+                <input class="form-input"
+                       placeholder="Select or enter company">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-input"
+                          placeholder="Describe the proposed collaboration..."></textarea>
+            </div>
+
+            <button class="primary-btn"
+                    style="width:100%"
+                    onclick="submitCollaboration()">
+                Create Collaboration
+            </button>
+
+        `;
+
+        openModal();
+    }
+
+
+    function openModal() {
+        document.getElementById("modal").classList.add("show");
+    }
+
+
+    function closeModal() {
+        document.getElementById("modal").classList.remove("show");
+    }
+
+
+    document.getElementById("modal").addEventListener("click", function(e) {
+
+        if (e.target === this) {
+            closeModal();
+        }
+
+    });
+
+
+    /* ================= ACTIONS ================= */
+
+    function submitOpportunity() {
+
+        closeModal();
+
+        showToast(
+            "Opportunity published successfully"
+        );
+
+    }
+
+
+    function addPartner() {
+
+        closeModal();
+
+        showToast(
+            "Partnership request sent"
+        );
+
+    }
+
+
+    function submitCollaboration() {
+
+        closeModal();
+
+        showToast(
+            "Collaboration created successfully"
+        );
+
+    }
+
+
+    /* ================= OPPORTUNITY DETAIL ================= */
+
+    function openOpportunity(title) {
+
+        document.getElementById("modalTitle").innerText =
+            title;
+
+        document.getElementById("modalContent").innerHTML = `
+
+            <div style="margin-bottom:18px">
+
+                <span class="badge purple">
+                    Industry Opportunity
+                </span>
+
+                <h2 style="font-size:18px;margin-top:10px">
+                    ${title}
+                </h2>
+
+                <p style="color:var(--muted);font-size:11px;margin-top:5px">
+                    Industry Partner · 6 months
+                </p>
+
+            </div>
+
+            <div class="detail-section">
+                <h3>Required Skills</h3>
+
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">C</span>
+                    <span class="tag">Embedded Systems</span>
+                    <span class="tag">Problem Solving</span>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Eligibility</h3>
+
+                <p>
+                    Open to students with relevant technical skills,
+                    completed foundational coursework and a minimum
+                    readiness score of 65%.
+                </p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Institution Action</h3>
+
+                <p>
+                    Students matching the skill profile will be
+                    automatically recommended.
+                </p>
+            </div>
+
+            <button class="primary-btn"
+                    style="width:100%"
+                    onclick="showToast('Matching students generated');closeModal()">
+                Find Matching Students
+            </button>
+
+        `;
+
+        openModal();
+    }
+
+
+    /* ================= STUDENT FILTER ================= */
+
+    function filterStudents() {
+
+        const search =
+            document.getElementById("studentSearch")
+            .value
+            .toLowerCase();
+
+        const branch =
+            document.getElementById("studentBranch")
+            .value
+            .toLowerCase();
+
+        document.querySelectorAll(".student-row").forEach(row => {
+
+            const text =
+                row.innerText.toLowerCase();
+
+            const matchesSearch =
+                text.includes(search);
+
+            const matchesBranch =
+                !branch ||
+                text.includes(branch);
+
+            row.style.display =
+                matchesSearch && matchesBranch
+                ? ""
+                : "none";
+
+        });
+
+    }
+
+
+    /* ================= OPPORTUNITY FILTER ================= */
+
+    function filterOpportunities() {
+
+        const search =
+            document.getElementById("opportunitySearch")
+            .value
+            .toLowerCase();
+
+        document.querySelectorAll(".opportunity-item")
+            .forEach(card => {
+
+                const text =
+                    card.innerText.toLowerCase();
+
+                card.style.display =
+                    text.includes(search)
+                    ? ""
+                    : "none";
+
+            });
+
+    }
+
+
+    /* ================= TOAST ================= */
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        toast.innerText = message;
+
+        toast.classList.add("show");
+
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 2600);
+
+    }
+
+</script>
+
+</body>
+</html>

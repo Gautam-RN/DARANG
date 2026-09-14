@@ -1,0 +1,3334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSathi | Faculty Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #07090d;
+            --panel: #0d1118;
+            --panel2: #111722;
+            --border: rgba(255,255,255,.08);
+            --text: #f3f6fb;
+            --muted: #8b96a8;
+            --accent: #6c63ff;
+            --accent2: #00d4ff;
+            --green: #27d17f;
+            --orange: #ffad42;
+            --red: #ff5d73;
+            --sidebar: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(circle at 80% 0%, rgba(108,99,255,.10), transparent 30%),
+                radial-gradient(circle at 20% 100%, rgba(0,212,255,.06), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar);
+            background: rgba(8,11,16,.95);
+            border-right: 1px solid var(--border);
+            padding: 22px 15px;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 5px 10px 28px;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Space Grotesk";
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 0 25px rgba(108,99,255,.25);
+        }
+
+        .brand-name {
+            font-family: "Space Grotesk";
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .brand-name span {
+            color: var(--accent2);
+        }
+
+        .role-label {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .nav-section {
+            margin-bottom: 23px;
+        }
+
+        .nav-title {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #586274;
+            padding: 0 12px 8px;
+            text-transform: uppercase;
+        }
+
+        .nav-item {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: #8d97a8;
+            padding: 10px 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 3px;
+            text-align: left;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,.04);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(
+                90deg,
+                rgba(108,99,255,.18),
+                rgba(108,99,255,.05)
+            );
+            color: white;
+            border-left: 2px solid var(--accent);
+        }
+
+        .nav-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .profile-mini {
+            border-top: 1px solid var(--border);
+            padding: 17px 8px 0;
+            margin-top: 8px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#272d3b,#5663a4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .mini-info {
+            min-width: 0;
+        }
+
+        .mini-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mini-role {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: var(--sidebar);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            background: rgba(7,9,13,.65);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .page-title {
+            font-family: "Space Grotesk";
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: #b9c1cf;
+            position: relative;
+        }
+
+        .notification-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--red);
+            right: 8px;
+            top: 7px;
+        }
+
+        .content {
+            padding: 28px 30px 50px;
+            max-width: 1500px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn .25s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= COMMON ================= */
+
+        .welcome {
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background:
+                linear-gradient(110deg,rgba(108,99,255,.12),transparent 50%),
+                var(--panel);
+            margin-bottom: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            right: -100px;
+            top: -130px;
+            border-radius: 50%;
+            border: 1px solid rgba(108,99,255,.15);
+            box-shadow:
+                0 0 0 25px rgba(108,99,255,.025),
+                0 0 0 50px rgba(108,99,255,.018);
+        }
+
+        .welcome h1 {
+            font-family: "Space Grotesk";
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .stat-value {
+            font-family: "Space Grotesk";
+            font-size: 27px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .stat-change {
+            font-size: 10px;
+            margin-top: 6px;
+            color: var(--green);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .card-subtitle {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .view-btn {
+            background: transparent;
+            border: 0;
+            color: var(--accent2);
+            font-size: 11px;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 9px;
+            padding: 10px 15px;
+            font-size: 11px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg,var(--accent),#4d8cff);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 7px 25px rgba(108,99,255,.22);
+        }
+
+        .btn-outline {
+            color: #cbd2df;
+            background: transparent;
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,.04);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .badge-green {
+            color: var(--green);
+            background: rgba(39,209,127,.1);
+        }
+
+        .badge-purple {
+            color: #a8a2ff;
+            background: rgba(108,99,255,.12);
+        }
+
+        .badge-orange {
+            color: var(--orange);
+            background: rgba(255,173,66,.1);
+        }
+
+        .badge-blue {
+            color: var(--accent2);
+            background: rgba(0,212,255,.08);
+        }
+
+        /* ================= OPPORTUNITY CARDS ================= */
+
+        .opportunity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .opportunity {
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: rgba(255,255,255,.015);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            transition: .2s;
+        }
+
+        .opportunity:hover {
+            border-color: rgba(108,99,255,.35);
+            background: rgba(108,99,255,.035);
+        }
+
+        .opp-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #171d28;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #b9c5ff;
+            flex-shrink: 0;
+        }
+
+        .opp-title {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .opp-company {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .opp-meta {
+            font-size: 10px;
+            color: #8994a5;
+            margin-top: 5px;
+        }
+
+        .opp-actions {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* ================= ACTIVITY ================= */
+
+        .activity {
+            display: flex;
+            gap: 11px;
+            margin-bottom: 16px;
+        }
+
+        .activity:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-top: 4px;
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(108,99,255,.4);
+            flex-shrink: 0;
+        }
+
+        .activity-text {
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .activity-time {
+            color: #657083;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        /* ================= FILTERS ================= */
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 17px;
+        }
+
+        .filter {
+            padding: 8px 12px;
+            background: var(--panel);
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 10px;
+        }
+
+        .filter.active {
+            color: white;
+            border-color: rgba(108,99,255,.5);
+            background: rgba(108,99,255,.12);
+        }
+
+        /* ================= PROGRAM GRID ================= */
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 15px;
+        }
+
+        .program-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 19px;
+            transition: .2s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(108,99,255,.35);
+        }
+
+        .program-type {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: var(--accent2);
+            margin-bottom: 12px;
+        }
+
+        .program-title {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .program-org {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 7px;
+        }
+
+        .program-desc {
+            color: #8994a5;
+            font-size: 10px;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+
+        .program-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 15px;
+            padding-top: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ================= DETAIL ================= */
+
+        .back-btn {
+            background: transparent;
+            border: 0;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 18px;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        .detail-hero {
+            background:
+                linear-gradient(120deg,rgba(108,99,255,.13),transparent),
+                var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 25px;
+            margin-bottom: 17px;
+        }
+
+        .detail-top {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .large-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: #171d28;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #a9a4ff;
+        }
+
+        .detail-title {
+            font-family: "Space Grotesk";
+            font-size: 22px;
+        }
+
+        .detail-company {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .detail-body {
+            margin-top: 22px;
+            color: #a5afbf;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+            margin-top: 17px;
+        }
+
+        .detail-box {
+            background: rgba(255,255,255,.025);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 13px;
+        }
+
+        .detail-box span {
+            color: var(--muted);
+            display: block;
+            font-size: 9px;
+            margin-bottom: 5px;
+        }
+
+        .detail-box strong {
+            font-size: 11px;
+        }
+
+        /* ================= APPLICATIONS ================= */
+
+        .application {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 13px;
+            padding: 17px;
+            margin-bottom: 10px;
+        }
+
+        .application-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .application-name {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .application-meta {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .timeline {
+            display: flex;
+            margin-top: 17px;
+        }
+
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            font-size: 9px;
+            color: #596476;
+        }
+
+        .timeline-step::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: #242b38;
+            border: 2px solid #3b4352;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: "";
+            height: 1px;
+            background: #252d39;
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            width: 100%;
+        }
+
+        .timeline-step.done {
+            color: var(--green);
+        }
+
+        .timeline-step.done::before {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        /* ================= PROFILE ================= */
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 18px;
+        }
+
+        .profile-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg,#313a54,#7168d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .profile-role {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .profile-stats {
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+            padding-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .profile-stat strong {
+            font-size: 15px;
+            display: block;
+        }
+
+        .profile-stat span {
+            font-size: 9px;
+            color: var(--muted);
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .field {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.015);
+            padding: 13px;
+            border-radius: 10px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field-label {
+            color: var(--muted);
+            font-size: 9px;
+            margin-bottom: 6px;
+        }
+
+        .field-value {
+            font-size: 11px;
+        }
+
+        /* ================= NOTIFICATIONS ================= */
+
+        .notification {
+            display: flex;
+            gap: 13px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notification:last-child {
+            border-bottom: 0;
+        }
+
+        .notification-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 9px;
+            background: rgba(108,99,255,.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .notification-text {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .notification-time {
+            color: #5f6878;
+            font-size: 9px;
+            margin-top: 5px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        .mobile-menu {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: white;
+            border-radius: 9px;
+        }
+
+        @media(max-width:1050px) {
+            .stats {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .program-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:800px) {
+            :root {
+                --sidebar: 0px;
+            }
+
+            .sidebar {
+                width: 250px;
+                transform: translateX(-100%);
+                transition: .25s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 17px;
+            }
+
+            .content {
+                padding: 20px 15px 40px;
+            }
+
+            .page-title {
+                font-size: 16px;
+            }
+
+            .top-actions .icon-btn:nth-child(2) {
+                display: none;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:550px) {
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat {
+                padding: 14px;
+            }
+
+            .stat-value {
+                font-size: 21px;
+            }
+
+            .opportunity {
+                align-items: flex-start;
+            }
+
+            .opp-actions {
+                flex-direction: column;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .welcome h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">E</div>
+        <div>
+            <div class="brand-name">Edu<span>Sathi</span></div>
+            <div class="role-label">FACULTY PORTAL</div>
+        </div>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">Workspace</div>
+
+        <button class="nav-item active" onclick="showPage('dashboard',this)">
+            <span class="nav-icon">⌂</span>
+            Dashboard
+        </button>
+
+        <button class="nav-item" onclick="showPage('opportunities',this)">
+            <span class="nav-icon">◈</span>
+            Industry Opportunities
+        </button>
+
+        <button class="nav-item" onclick="showPage('internships',this)">
+            <span class="nav-icon">↗</span>
+            Faculty Internships
+        </button>
+
+        <button class="nav-item" onclick="showPage('fdp',this)">
+            <span class="nav-icon">▣</span>
+            FDP Programs
+        </button>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">Collaboration</div>
+
+        <button class="nav-item" onclick="showPage('mentorship',this)">
+            <span class="nav-icon">◎</span>
+            Mentorship
+        </button>
+
+        <button class="nav-item" onclick="showPage('workshops',this)">
+            <span class="nav-icon">✦</span>
+            Workshops
+        </button>
+
+        <button class="nav-item" onclick="showPage('consultancy',this)">
+            <span class="nav-icon">◇</span>
+            Consultancy
+        </button>
+
+        <button class="nav-item" onclick="showPage('research',this)">
+            <span class="nav-icon">⌬</span>
+            Research
+        </button>
+
+        <button class="nav-item" onclick="showPage('projects',this)">
+            <span class="nav-icon">⚙</span>
+            Live Projects
+        </button>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-title">Manage</div>
+
+        <button class="nav-item" onclick="showPage('applications',this)">
+            <span class="nav-icon">✓</span>
+            Applications
+        </button>
+
+        <button class="nav-item" onclick="showPage('profile',this)">
+            <span class="nav-icon">◉</span>
+            My Profile
+        </button>
+
+        <button class="nav-item" onclick="showPage('notifications',this)">
+            <span class="nav-icon">♢</span>
+            Notifications
+        </button>
+    </div>
+
+    <div class="profile-mini">
+        <div class="avatar">AM</div>
+        <div class="mini-info">
+            <div class="mini-name">Dr. Ananya Menon</div>
+            <div class="mini-role">Assistant Professor • CSE</div>
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+            <div>
+                <div class="page-title" id="topTitle">Faculty Dashboard</div>
+                <div class="page-subtitle">
+                    Connect academia with industry
+                </div>
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <button class="icon-btn" onclick="showPage('notifications')">
+                ♢
+                <span class="notification-dot"></span>
+            </button>
+
+            <button class="icon-btn" onclick="showPage('profile')">
+                ◉
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="content">
+
+
+        <!-- ================================================= -->
+        <!-- DASHBOARD -->
+        <!-- ================================================= -->
+
+        <section class="page active" id="dashboard">
+
+            <div class="welcome">
+                <h1>Good evening, Dr. Ananya 👋</h1>
+                <p>
+                    Your expertise can create the bridge between classrooms,
+                    research labs and real-world industry.
+                </p>
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div class="stat-label">Industry Collaborations</div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-change">↑ 4 this year</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Active Programs</div>
+                    <div class="stat-value">07</div>
+                    <div class="stat-change">3 ongoing</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Student Mentorships</div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-change">↑ 12% this semester</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Pending Applications</div>
+                    <div class="stat-value">05</div>
+                    <div class="stat-change" style="color:var(--orange)">
+                        Requires review
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="grid-2">
+
+                <!-- Recommended opportunities -->
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">
+                                Recommended Industry Opportunities
+                            </div>
+                            <div class="card-subtitle">
+                                Based on your expertise and interests
+                            </div>
+                        </div>
+
+                        <button class="view-btn"
+                                onclick="showPage('opportunities')">
+                            View all →
+                        </button>
+                    </div>
+
+                    <div class="opportunity-list">
+
+                        <div class="opportunity">
+
+                            <div class="opp-main">
+
+                                <div class="company-logo">TCS</div>
+
+                                <div>
+                                    <div class="opp-title">
+                                        Industry-Academia Research Program
+                                    </div>
+
+                                    <div class="opp-company">
+                                        Tata Consultancy Services
+                                    </div>
+
+                                    <div class="opp-meta">
+                                        AI • IoT • 6 Month Collaboration
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="opp-actions">
+                                <span class="badge badge-purple">
+                                    96% Match
+                                </span>
+
+                                <button class="btn btn-outline"
+                                        onclick="openOpportunity('tcs')">
+                                    View
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="opportunity">
+
+                            <div class="opp-main">
+
+                                <div class="company-logo">NVIDIA</div>
+
+                                <div>
+                                    <div class="opp-title">
+                                        Faculty Research Collaboration
+                                    </div>
+
+                                    <div class="opp-company">
+                                        NVIDIA Academic Network
+                                    </div>
+
+                                    <div class="opp-meta">
+                                        GPU Computing • AI Research
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="opp-actions">
+                                <span class="badge badge-blue">
+                                    91% Match
+                                </span>
+
+                                <button class="btn btn-outline"
+                                        onclick="openOpportunity('nvidia')">
+                                    View
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="opportunity">
+
+                            <div class="opp-main">
+
+                                <div class="company-logo">ST</div>
+
+                                <div>
+                                    <div class="opp-title">
+                                        Embedded Systems Faculty Program
+                                    </div>
+
+                                    <div class="opp-company">
+                                        Semiconductor Industry Partner
+                                    </div>
+
+                                    <div class="opp-meta">
+                                        Embedded • VLSI • Faculty Training
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="opp-actions">
+                                <span class="badge badge-green">
+                                    88% Match
+                                </span>
+
+                                <button class="btn btn-outline"
+                                        onclick="openOpportunity('embedded')">
+                                    View
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Activity -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="card-title">
+                                Collaboration Activity
+                            </div>
+
+                            <div class="card-subtitle">
+                                Latest updates
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+                            <div class="activity-text">
+                                Industry partner accepted your
+                                <b>AI Lab Collaboration</b> proposal.
+                            </div>
+
+                            <div class="activity-time">
+                                2 hours ago
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+                            <div class="activity-text">
+                                8 students joined your
+                                <b>Embedded Systems mentorship</b>.
+                            </div>
+
+                            <div class="activity-time">
+                                Yesterday
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+                            <div class="activity-text">
+                                New FDP program available from
+                                <b>Intel Academia</b>.
+                            </div>
+
+                            <div class="activity-time">
+                                2 days ago
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-dot"></div>
+
+                        <div>
+                            <div class="activity-text">
+                                Research proposal deadline extended.
+                            </div>
+
+                            <div class="activity-time">
+                                3 days ago
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- INDUSTRY OPPORTUNITIES -->
+        <!-- ================================================= -->
+
+        <section class="page" id="opportunities">
+
+            <div class="welcome">
+                <h1>Industry Opportunities</h1>
+                <p>
+                    Discover collaborations, academic programs and
+                    industry engagement opportunities.
+                </p>
+            </div>
+
+            <div class="filters">
+
+                <button class="filter active"
+                        onclick="filterCards(this,'all')">
+                    All
+                </button>
+
+                <button class="filter"
+                        onclick="filterCards(this,'research')">
+                    Research
+                </button>
+
+                <button class="filter"
+                        onclick="filterCards(this,'training')">
+                    Training
+                </button>
+
+                <button class="filter"
+                        onclick="filterCards(this,'consultancy')">
+                    Consultancy
+                </button>
+
+                <button class="filter"
+                        onclick="filterCards(this,'mentorship')">
+                    Mentorship
+                </button>
+
+            </div>
+
+
+            <div class="program-grid">
+
+                <div class="program-card opportunity-card"
+                     data-type="research">
+
+                    <div class="program-type">
+                        Research Collaboration
+                    </div>
+
+                    <div class="program-title">
+                        Industry-Academia AI Research Program
+                    </div>
+
+                    <div class="program-org">
+                        Tata Consultancy Services
+                    </div>
+
+                    <div class="program-desc">
+                        Collaborate with industry researchers on
+                        applied artificial intelligence projects.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-purple">
+                            96% Match
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="openOpportunity('tcs')">
+                            Details
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="program-card opportunity-card"
+                     data-type="research">
+
+                    <div class="program-type">
+                        Research
+                    </div>
+
+                    <div class="program-title">
+                        GPU Computing Research Network
+                    </div>
+
+                    <div class="program-org">
+                        NVIDIA Academic Network
+                    </div>
+
+                    <div class="program-desc">
+                        Explore accelerated computing and AI research
+                        with academic-industry collaboration.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-blue">
+                            91% Match
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="openOpportunity('nvidia')">
+                            Details
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="program-card opportunity-card"
+                     data-type="training">
+
+                    <div class="program-type">
+                        Faculty Training
+                    </div>
+
+                    <div class="program-title">
+                        Embedded Systems Faculty Development
+                    </div>
+
+                    <div class="program-org">
+                        Semiconductor Industry Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Hands-on faculty training covering embedded
+                        systems, RTOS and modern microcontrollers.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-green">
+                            88% Match
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="openOpportunity('embedded')">
+                            Details
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="program-card opportunity-card"
+                     data-type="consultancy">
+
+                    <div class="program-type">
+                        Consultancy
+                    </div>
+
+                    <div class="program-title">
+                        Industrial Digital Transformation
+                    </div>
+
+                    <div class="program-org">
+                        Technology Solutions Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Faculty experts required for digital transformation
+                        and process optimisation projects.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-orange">
+                            New
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Proposal workspace opened.')">
+                            Propose
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="program-card opportunity-card"
+                     data-type="mentorship">
+
+                    <div class="program-type">
+                        Mentorship
+                    </div>
+
+                    <div class="program-title">
+                        Industry Mentor for Student Innovation
+                    </div>
+
+                    <div class="program-org">
+                        Innovation Partner Network
+                    </div>
+
+                    <div class="program-desc">
+                        Guide student teams working on real-world
+                        engineering challenges.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-purple">
+                            82% Match
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Mentorship interest registered.')">
+                            Join
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="program-card opportunity-card"
+                     data-type="training">
+
+                    <div class="program-type">
+                        Workshop
+                    </div>
+
+                    <div class="program-title">
+                        Industry 4.0 Faculty Workshop
+                    </div>
+
+                    <div class="program-org">
+                        Manufacturing Technology Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Practical exposure to automation, robotics,
+                        digital twins and smart manufacturing.
+                    </div>
+
+                    <div class="program-footer">
+
+                        <span class="badge badge-blue">
+                            2 Seats
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Workshop registration opened.')">
+                            Register
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- FACULTY INTERNSHIPS -->
+        <!-- ================================================= -->
+
+        <section class="page" id="internships">
+
+            <div class="welcome">
+                <h1>Faculty Internships</h1>
+                <p>
+                    Gain industry exposure through structured faculty
+                    internships and immersion programs.
+                </p>
+            </div>
+
+            <div class="program-grid">
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Summer Internship
+                    </div>
+
+                    <div class="program-title">
+                        AI & Machine Learning Industry Immersion
+                    </div>
+
+                    <div class="program-org">
+                        Technology Research Lab
+                    </div>
+
+                    <div class="program-desc">
+                        6-week faculty internship covering production
+                        AI systems, MLOps and applied research.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-green">6 Weeks</span>
+                        <button class="btn btn-primary"
+                                onclick="alert('Application started.')">
+                            Apply
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Industry Immersion
+                    </div>
+
+                    <div class="program-title">
+                        Embedded Systems & Semiconductor Program
+                    </div>
+
+                    <div class="program-org">
+                        Semiconductor Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Exposure to semiconductor workflows, embedded
+                        development and industrial testing.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-purple">4 Weeks</span>
+                        <button class="btn btn-primary"
+                                onclick="alert('Application started.')">
+                            Apply
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Corporate Immersion
+                    </div>
+
+                    <div class="program-title">
+                        Cloud & Digital Engineering
+                    </div>
+
+                    <div class="program-org">
+                        Enterprise Technology Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Learn modern cloud architecture and enterprise
+                        engineering practices.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-blue">2 Weeks</span>
+                        <button class="btn btn-outline"
+                                onclick="alert('Application started.')">
+                            Apply
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- FDP -->
+        <!-- ================================================= -->
+
+        <section class="page" id="fdp">
+
+            <div class="welcome">
+                <h1>Faculty Development Programs</h1>
+                <p>
+                    Upgrade technical and professional capabilities
+                    through industry-led FDPs.
+                </p>
+            </div>
+
+            <div class="program-grid">
+
+                <div class="program-card">
+                    <div class="program-type">FDP • 5 Days</div>
+
+                    <div class="program-title">
+                        Generative AI for Engineering Education
+                    </div>
+
+                    <div class="program-org">
+                        AI Industry Academy
+                    </div>
+
+                    <div class="program-desc">
+                        LLMs, AI-assisted development, prompt engineering
+                        and responsible AI in education.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-green">Open</span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('FDP registration opened.')">
+                            Register
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="program-card">
+                    <div class="program-type">FDP • 7 Days</div>
+
+                    <div class="program-title">
+                        Advanced Embedded Systems
+                    </div>
+
+                    <div class="program-org">
+                        Embedded Technology Academy
+                    </div>
+
+                    <div class="program-desc">
+                        Modern MCUs, RTOS, communication protocols and
+                        industry-grade embedded architecture.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-purple">12 Seats</span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('FDP registration opened.')">
+                            Register
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="program-card">
+                    <div class="program-type">FDP • 3 Days</div>
+
+                    <div class="program-title">
+                        Outcome Based Industry Curriculum
+                    </div>
+
+                    <div class="program-org">
+                        Industry Education Forum
+                    </div>
+
+                    <div class="program-desc">
+                        Learn how industry skill requirements can be mapped
+                        into curriculum and academic outcomes.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-blue">Online</span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('FDP registration opened.')">
+                            Register
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- MENTORSHIP -->
+        <!-- ================================================= -->
+
+        <section class="page" id="mentorship">
+
+            <div class="welcome">
+                <h1>Mentorship</h1>
+                <p>
+                    Connect with students and industry professionals
+                    to guide the next generation of talent.
+                </p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div class="stat-label">Active Mentees</div>
+                    <div class="stat-value">12</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Completed Mentorships</div>
+                    <div class="stat-value">30</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Industry Mentors</div>
+                    <div class="stat-value">08</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Projects Guided</div>
+                    <div class="stat-value">17</div>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">
+                            Current Mentorships
+                        </div>
+                        <div class="card-subtitle">
+                            Students and projects under your guidance
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Mentorship request form opened.')">
+                        + Create Mentorship
+                    </button>
+                </div>
+
+                <div class="opportunity-list">
+
+                    <div class="opportunity">
+                        <div class="opp-main">
+                            <div class="company-logo">AK</div>
+                            <div>
+                                <div class="opp-title">
+                                    Autonomous Wheelchair Project
+                                </div>
+                                <div class="opp-company">
+                                    4 students • Embedded Systems
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="badge badge-green">
+                            Active
+                        </span>
+                    </div>
+
+
+                    <div class="opportunity">
+                        <div class="opp-main">
+                            <div class="company-logo">ML</div>
+                            <div>
+                                <div class="opp-title">
+                                    Edge AI for Smart Devices
+                                </div>
+                                <div class="opp-company">
+                                    3 students • AI / IoT
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="badge badge-purple">
+                            Active
+                        </span>
+                    </div>
+
+
+                    <div class="opportunity">
+                        <div class="opp-main">
+                            <div class="company-logo">VC</div>
+                            <div>
+                                <div class="opp-title">
+                                    Digital Commerce Platform
+                                </div>
+                                <div class="opp-company">
+                                    5 students • Web Development
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="badge badge-orange">
+                            Review
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- WORKSHOPS -->
+        <!-- ================================================= -->
+
+        <section class="page" id="workshops">
+
+            <div class="welcome">
+                <h1>Workshops & Expert Sessions</h1>
+                <p>
+                    Discover industry experts and organise technical
+                    learning experiences.
+                </p>
+            </div>
+
+            <div class="program-grid">
+
+                <div class="program-card">
+                    <div class="program-type">Workshop</div>
+
+                    <div class="program-title">
+                        Building Production-Ready AI Applications
+                    </div>
+
+                    <div class="program-org">
+                        Industry AI Engineer
+                    </div>
+
+                    <div class="program-desc">
+                        A practical session on taking ML prototypes
+                        into production systems.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-green">
+                            18 Sept
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Workshop added to calendar.')">
+                            Attend
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="program-card">
+                    <div class="program-type">Expert Talk</div>
+
+                    <div class="program-title">
+                        Careers in Semiconductor Engineering
+                    </div>
+
+                    <div class="program-org">
+                        Semiconductor Industry Expert
+                    </div>
+
+                    <div class="program-desc">
+                        Industry insights into semiconductor careers,
+                        skills and research opportunities.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-blue">
+                            22 Sept
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Session added to calendar.')">
+                            Attend
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="program-card">
+                    <div class="program-type">Hands-on</div>
+
+                    <div class="program-title">
+                        IoT Product Development Bootcamp
+                    </div>
+
+                    <div class="program-org">
+                        Industry IoT Lab
+                    </div>
+
+                    <div class="program-desc">
+                        Build and validate an IoT product from concept
+                        to prototype.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-purple">
+                            3 Days
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Bootcamp registration opened.')">
+                            Register
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- CONSULTANCY -->
+        <!-- ================================================= -->
+
+        <section class="page" id="consultancy">
+
+            <div class="welcome">
+                <h1>Consultancy</h1>
+                <p>
+                    Apply your academic expertise to real industry
+                    challenges and professional projects.
+                </p>
+            </div>
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="card-title">
+                            Available Consultancy Requests
+                        </div>
+
+                        <div class="card-subtitle">
+                            Industry problems matching your expertise
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary"
+                            onclick="alert('New consultancy proposal created.')">
+                        + Create Proposal
+                    </button>
+
+                </div>
+
+
+                <div class="opportunity-list">
+
+                    <div class="opportunity">
+
+                        <div class="opp-main">
+
+                            <div class="company-logo">
+                                IOT
+                            </div>
+
+                            <div>
+
+                                <div class="opp-title">
+                                    Industrial IoT Monitoring System
+                                </div>
+
+                                <div class="opp-company">
+                                    Manufacturing Technology Company
+                                </div>
+
+                                <div class="opp-meta">
+                                    IoT • Embedded • Data Analytics
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="opp-actions">
+
+                            <span class="badge badge-green">
+                                High Match
+                            </span>
+
+                            <button class="btn btn-primary"
+                                    onclick="alert('Consultancy proposal workspace opened.')">
+                                Propose
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="opportunity">
+
+                        <div class="opp-main">
+
+                            <div class="company-logo">
+                                AI
+                            </div>
+
+                            <div>
+
+                                <div class="opp-title">
+                                    Predictive Maintenance Model
+                                </div>
+
+                                <div class="opp-company">
+                                    Engineering Solutions Company
+                                </div>
+
+                                <div class="opp-meta">
+                                    Machine Learning • Python
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="opp-actions">
+
+                            <span class="badge badge-purple">
+                                90% Match
+                            </span>
+
+                            <button class="btn btn-outline"
+                                    onclick="alert('Consultancy details opened.')">
+                                Details
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- RESEARCH -->
+        <!-- ================================================= -->
+
+        <section class="page" id="research">
+
+            <div class="welcome">
+                <h1>Research Collaborations</h1>
+                <p>
+                    Find research partners, funding opportunities and
+                    industry-led R&D programs.
+                </p>
+            </div>
+
+            <div class="program-grid">
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Industry Research
+                    </div>
+
+                    <div class="program-title">
+                        Edge AI & TinyML Research
+                    </div>
+
+                    <div class="program-org">
+                        Embedded AI Research Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Joint research on efficient machine learning
+                        models for resource-constrained devices.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-green">
+                            Funding Available
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Research proposal opened.')">
+                            Collaborate
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Joint R&D
+                    </div>
+
+                    <div class="program-title">
+                        Smart Mobility Systems
+                    </div>
+
+                    <div class="program-org">
+                        Mobility Technology Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Research opportunities involving intelligent
+                        transportation and assistive mobility.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-purple">
+                            Open Call
+                        </span>
+
+                        <button class="btn btn-primary"
+                                onclick="alert('Research proposal opened.')">
+                            Collaborate
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <div class="program-type">
+                        Sponsored Research
+                    </div>
+
+                    <div class="program-title">
+                        Sustainable Electronics
+                    </div>
+
+                    <div class="program-org">
+                        Electronics Industry Partner
+                    </div>
+
+                    <div class="program-desc">
+                        Explore low-power electronics and sustainable
+                        hardware design.
+                    </div>
+
+                    <div class="program-footer">
+                        <span class="badge badge-blue">
+                            New
+                        </span>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Research details opened.')">
+                            Details
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- LIVE PROJECTS -->
+        <!-- ================================================= -->
+
+        <section class="page" id="projects">
+
+            <div class="welcome">
+                <h1>Live Industry Projects</h1>
+                <p>
+                    Manage real-world projects where students,
+                    faculty and industry work together.
+                </p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div class="stat-label">Active Projects</div>
+                    <div class="stat-value">06</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Students Involved</div>
+                    <div class="stat-value">31</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Industry Partners</div>
+                    <div class="stat-value">09</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">Completed</div>
+                    <div class="stat-value">14</div>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="card-title">
+                            Current Projects
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary"
+                            onclick="alert('Project creation workspace opened.')">
+                        + New Project
+                    </button>
+
+                </div>
+
+
+                <div class="opportunity-list">
+
+                    <div class="opportunity">
+
+                        <div class="opp-main">
+
+                            <div class="company-logo">
+                                AI
+                            </div>
+
+                            <div>
+                                <div class="opp-title">
+                                    AI-Based Industrial Quality Inspection
+                                </div>
+
+                                <div class="opp-company">
+                                    6 students • AI/ML • Manufacturing
+                                </div>
+
+                                <div class="opp-meta">
+                                    Progress: 72%
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <span class="badge badge-green">
+                            On Track
+                        </span>
+
+                    </div>
+
+
+                    <div class="opportunity">
+
+                        <div class="opp-main">
+
+                            <div class="company-logo">
+                                EMB
+                            </div>
+
+                            <div>
+                                <div class="opp-title">
+                                    Smart Embedded Monitoring Device
+                                </div>
+
+                                <div class="opp-company">
+                                    4 students • Embedded Systems
+                                </div>
+
+                                <div class="opp-meta">
+                                    Progress: 54%
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <span class="badge badge-purple">
+                            Active
+                        </span>
+
+                    </div>
+
+
+                    <div class="opportunity">
+
+                        <div class="opp-main">
+
+                            <div class="company-logo">
+                                WEB
+                            </div>
+
+                            <div>
+                                <div class="opp-title">
+                                    Industry Skill Mapping Platform
+                                </div>
+
+                                <div class="opp-company">
+                                    8 students • Web • Data
+                                </div>
+
+                                <div class="opp-meta">
+                                    Progress: 88%
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <span class="badge badge-orange">
+                            Review
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- APPLICATIONS -->
+        <!-- ================================================= -->
+
+        <section class="page" id="applications">
+
+            <div class="welcome">
+                <h1>Applications & Tracking</h1>
+                <p>
+                    Track your faculty internship, FDP and
+                    collaboration applications.
+                </p>
+            </div>
+
+
+            <div class="application">
+
+                <div class="application-top">
+
+                    <div>
+                        <div class="application-name">
+                            AI Industry Research Collaboration
+                        </div>
+
+                        <div class="application-meta">
+                            Tata Consultancy Services • Applied 08 Sept 2026
+                        </div>
+                    </div>
+
+                    <span class="badge badge-green">
+                        Accepted
+                    </span>
+
+                </div>
+
+
+                <div class="timeline">
+
+                    <div class="timeline-step done">
+                        Submitted
+                    </div>
+
+                    <div class="timeline-step done">
+                        Review
+                    </div>
+
+                    <div class="timeline-step done">
+                        Interview
+                    </div>
+
+                    <div class="timeline-step done">
+                        Accepted
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="application">
+
+                <div class="application-top">
+
+                    <div>
+                        <div class="application-name">
+                            Advanced Embedded Systems FDP
+                        </div>
+
+                        <div class="application-meta">
+                            Embedded Technology Academy • Applied 10 Sept 2026
+                        </div>
+                    </div>
+
+                    <span class="badge badge-orange">
+                        Under Review
+                    </span>
+
+                </div>
+
+
+                <div class="timeline">
+
+                    <div class="timeline-step done">
+                        Submitted
+                    </div>
+
+                    <div class="timeline-step done">
+                        Review
+                    </div>
+
+                    <div class="timeline-step">
+                        Selection
+                    </div>
+
+                    <div class="timeline-step">
+                        Confirmed
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="application">
+
+                <div class="application-top">
+
+                    <div>
+                        <div class="application-name">
+                            Smart Mobility Research Program
+                        </div>
+
+                        <div class="application-meta">
+                            Mobility Technology Partner • Applied 05 Sept 2026
+                        </div>
+                    </div>
+
+                    <span class="badge badge-purple">
+                        Shortlisted
+                    </span>
+
+                </div>
+
+
+                <div class="timeline">
+
+                    <div class="timeline-step done">
+                        Submitted
+                    </div>
+
+                    <div class="timeline-step done">
+                        Review
+                    </div>
+
+                    <div class="timeline-step done">
+                        Shortlisted
+                    </div>
+
+                    <div class="timeline-step">
+                        Final
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- PROFILE -->
+        <!-- ================================================= -->
+
+        <section class="page" id="profile">
+
+            <div class="welcome">
+                <h1>My Faculty Profile</h1>
+                <p>
+                    Your expertise profile powers EduSathi's
+                    collaboration matching engine.
+                </p>
+            </div>
+
+
+            <div class="profile-grid">
+
+                <div class="profile-card">
+
+                    <div class="profile-avatar">
+                        AM
+                    </div>
+
+                    <div class="profile-name">
+                        Dr. Ananya Menon
+                    </div>
+
+                    <div class="profile-role">
+                        Assistant Professor • Computer Science
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <span class="badge badge-green">
+                            Profile 94% Complete
+                        </span>
+                    </div>
+
+                    <div class="profile-stats">
+
+                        <div class="profile-stat">
+                            <strong>18</strong>
+                            <span>Collaborations</span>
+                        </div>
+
+                        <div class="profile-stat">
+                            <strong>42</strong>
+                            <span>Mentees</span>
+                        </div>
+
+                        <div class="profile-stat">
+                            <strong>11</strong>
+                            <span>Research Works</span>
+                        </div>
+
+                        <div class="profile-stat">
+                            <strong>24</strong>
+                            <span>Programs</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="card-title">
+                                Professional Information
+                            </div>
+
+                            <div class="card-subtitle">
+                                Public faculty profile
+                            </div>
+                        </div>
+
+                        <button class="btn btn-outline"
+                                onclick="alert('Profile editing enabled.')">
+                            Edit Profile
+                        </button>
+
+                    </div>
+
+
+                    <div class="field-grid">
+
+                        <div class="field">
+                            <div class="field-label">Department</div>
+                            <div class="field-value">
+                                Computer Science & Engineering
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field-label">Designation</div>
+                            <div class="field-value">
+                                Assistant Professor
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field-label">Experience</div>
+                            <div class="field-value">
+                                8 Years
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field-label">Institution</div>
+                            <div class="field-value">
+                                Kerala Institute of Technology
+                            </div>
+                        </div>
+
+                        <div class="field full">
+                            <div class="field-label">Expertise</div>
+                            <div class="field-value">
+                                Artificial Intelligence • Machine Learning •
+                                Embedded Systems • IoT • Data Analytics
+                            </div>
+                        </div>
+
+                        <div class="field full">
+                            <div class="field-label">Research Interests</div>
+                            <div class="field-value">
+                                Edge AI, TinyML, Smart Mobility,
+                                Intelligent Systems and Assistive Technology
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- NOTIFICATIONS -->
+        <!-- ================================================= -->
+
+        <section class="page" id="notifications">
+
+            <div class="welcome">
+                <h1>Notifications</h1>
+                <p>
+                    Stay updated on opportunities, applications
+                    and collaboration activity.
+                </p>
+            </div>
+
+
+            <div class="card">
+
+                <div class="notification">
+
+                    <div class="notification-icon">✓</div>
+
+                    <div>
+                        <div class="notification-title">
+                            Research collaboration accepted
+                        </div>
+
+                        <div class="notification-text">
+                            Your proposal for the AI Industry Research
+                            Program has been accepted.
+                        </div>
+
+                        <div class="notification-time">
+                            2 hours ago
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">✦</div>
+
+                    <div>
+                        <div class="notification-title">
+                            New FDP recommendation
+                        </div>
+
+                        <div class="notification-text">
+                            An Embedded Systems FDP matches 94% of
+                            your faculty profile.
+                        </div>
+
+                        <div class="notification-time">
+                            Yesterday
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">◎</div>
+
+                    <div>
+                        <div class="notification-title">
+                            New mentorship request
+                        </div>
+
+                        <div class="notification-text">
+                            A student team requested mentorship for
+                            their Smart Mobility project.
+                        </div>
+
+                        <div class="notification-time">
+                            2 days ago
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="notification-icon">◇</div>
+
+                    <div>
+                        <div class="notification-title">
+                            Industry consultancy opportunity
+                        </div>
+
+                        <div class="notification-text">
+                            A new IoT consultancy request matches
+                            your expertise.
+                        </div>
+
+                        <div class="notification-time">
+                            3 days ago
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- OPPORTUNITY DETAIL -->
+        <!-- ================================================= -->
+
+        <section class="page" id="opportunity-detail">
+
+            <button class="back-btn"
+                    onclick="showPage('opportunities')">
+                ← Back to opportunities
+            </button>
+
+
+            <div class="detail-hero">
+
+                <div class="detail-top">
+
+                    <div class="large-logo" id="detailLogo">
+                        TCS
+                    </div>
+
+                    <div>
+
+                        <div class="detail-title"
+                             id="detailTitle">
+                            Industry-Academia Research Program
+                        </div>
+
+                        <div class="detail-company"
+                             id="detailCompany">
+                            Tata Consultancy Services
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-body"
+                     id="detailDescription">
+
+                    Collaborate with industry researchers on applied
+                    artificial intelligence and emerging technology
+                    projects.
+
+                </div>
+
+
+                <div class="detail-grid">
+
+                    <div class="detail-box">
+                        <span>Type</span>
+                        <strong id="detailType">
+                            Research Collaboration
+                        </strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Duration</span>
+                        <strong id="detailDuration">
+                            6 Months
+                        </strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Match Score</span>
+                        <strong id="detailMatch">
+                            96%
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div style="display:flex;gap:9px;margin-top:20px;">
+
+                    <button class="btn btn-primary"
+                            onclick="applyOpportunity()">
+                        Apply / Express Interest
+                    </button>
+
+                    <button class="btn btn-outline"
+                            onclick="alert('Opportunity saved.')">
+                        ☆ Save
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid-2">
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Why this matches you
+                    </div>
+
+                    <div style="margin-top:15px">
+
+                        <div class="activity">
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                Your expertise in
+                                <b>Artificial Intelligence</b>
+                                matches the program.
+                            </div>
+                        </div>
+
+                        <div class="activity">
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                Your research interest in
+                                <b>Edge AI</b> is highly relevant.
+                            </div>
+                        </div>
+
+                        <div class="activity">
+                            <div class="activity-dot"></div>
+
+                            <div class="activity-text">
+                                Previous industry collaboration
+                                increases your compatibility score.
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        Skills / Expertise Required
+                    </div>
+
+                    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:15px">
+
+                        <span class="badge badge-purple">AI/ML</span>
+                        <span class="badge badge-blue">Python</span>
+                        <span class="badge badge-green">Research</span>
+                        <span class="badge badge-orange">IoT</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+<script>
+
+    /* ============================================
+       PAGE NAVIGATION
+    ============================================ */
+
+    const pageTitles = {
+        dashboard: "Faculty Dashboard",
+        opportunities: "Industry Opportunities",
+        internships: "Faculty Internships",
+        fdp: "Faculty Development Programs",
+        mentorship: "Mentorship",
+        workshops: "Workshops & Sessions",
+        consultancy: "Consultancy",
+        research: "Research Collaborations",
+        projects: "Live Industry Projects",
+        applications: "Applications & Tracking",
+        profile: "My Faculty Profile",
+        notifications: "Notifications",
+        "opportunity-detail": "Opportunity Details"
+    };
+
+
+    function showPage(pageId, clickedItem = null) {
+
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        const target = document.getElementById(pageId);
+
+        if (target) {
+            target.classList.add("active");
+        }
+
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        if (clickedItem) {
+            clickedItem.classList.add("active");
+        } else {
+
+            document.querySelectorAll(".nav-item").forEach(item => {
+
+                const text = item.innerText.toLowerCase();
+
+                if (
+                    (pageId === "dashboard" && text.includes("dashboard")) ||
+                    (pageId === "opportunities" && text.includes("opportunities")) ||
+                    (pageId === "internships" && text.includes("internships")) ||
+                    (pageId === "fdp" && text.includes("fdp")) ||
+                    (pageId === "mentorship" && text.includes("mentorship")) ||
+                    (pageId === "workshops" && text.includes("workshops")) ||
+                    (pageId === "consultancy" && text.includes("consultancy")) ||
+                    (pageId === "research" && text.includes("research")) ||
+                    (pageId === "projects" && text.includes("projects")) ||
+                    (pageId === "applications" && text.includes("applications")) ||
+                    (pageId === "profile" && text.includes("profile")) ||
+                    (pageId === "notifications" && text.includes("notifications"))
+                ) {
+                    item.classList.add("active");
+                }
+
+            });
+        }
+
+        document.getElementById("topTitle").innerText =
+            pageTitles[pageId] || "EduSathi";
+
+        closeSidebar();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* ============================================
+       OPPORTUNITY DETAILS
+    ============================================ */
+
+    const opportunities = {
+
+        tcs: {
+            logo: "TCS",
+            title: "Industry-Academia Research Program",
+            company: "Tata Consultancy Services",
+            type: "Research Collaboration",
+            duration: "6 Months",
+            match: "96%",
+            description:
+                "Collaborate with industry researchers on applied artificial intelligence, IoT and emerging technology projects. Faculty members can contribute research expertise while gaining exposure to real-world industrial problems."
+        },
+
+        nvidia: {
+            logo: "NVIDIA",
+            title: "Faculty Research Collaboration",
+            company: "NVIDIA Academic Network",
+            type: "Research",
+            duration: "1 Year",
+            match: "91%",
+            description:
+                "Explore accelerated computing, AI research and high-performance computing through an industry-academia research collaboration."
+        },
+
+        embedded: {
+            logo: "ST",
+            title: "Embedded Systems Faculty Program",
+            company: "Semiconductor Industry Partner",
+            type: "Faculty Training",
+            duration: "4 Weeks",
+            match: "88%",
+            description:
+                "Hands-on faculty development program covering modern microcontrollers, embedded architecture, RTOS, communication protocols and industry development workflows."
+        }
+
+    };
+
+
+    function openOpportunity(id) {
+
+        const data = opportunities[id];
+
+        if (!data) return;
+
+        document.getElementById("detailLogo").innerText =
+            data.logo;
+
+        document.getElementById("detailTitle").innerText =
+            data.title;
+
+        document.getElementById("detailCompany").innerText =
+            data.company;
+
+        document.getElementById("detailType").innerText =
+            data.type;
+
+        document.getElementById("detailDuration").innerText =
+            data.duration;
+
+        document.getElementById("detailMatch").innerText =
+            data.match;
+
+        document.getElementById("detailDescription").innerText =
+            data.description;
+
+        showPage("opportunity-detail");
+    }
+
+
+    function applyOpportunity() {
+
+        alert(
+            "Interest registered successfully!\n\n" +
+            "EduSathi will add this opportunity to your Applications dashboard."
+        );
+
+        showPage("applications");
+    }
+
+
+    /* ============================================
+       FILTERS
+    ============================================ */
+
+    function filterCards(button, type) {
+
+        document.querySelectorAll(".filter").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        document.querySelectorAll(".opportunity-card").forEach(card => {
+
+            if (type === "all" || card.dataset.type === type) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+
+        });
+    }
+
+
+    /* ============================================
+       MOBILE SIDEBAR
+    ============================================ */
+
+    function toggleSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList.toggle("open");
+
+    }
+
+
+    function closeSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList.remove("open");
+
+    }
+
+
+    /* ============================================
+       DEMO KEYBOARD SHORTCUT
+    ============================================ */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-// DARANG homepage interactions
+// EduSathi homepage interactions
 
 const navbar = document.getElementById("navbar");
 const menuBtn = document.getElementById("menuBtn");

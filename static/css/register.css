@@ -1,0 +1,996 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+
+:root {
+    --bg: #07090d;
+    --card: rgba(15, 19, 26, 0.90);
+    --line: rgba(255,255,255,0.09);
+
+    --text: #f4f7f2;
+    --muted: #7f8999;
+
+    --green: #8cff66;
+    --green-soft: rgba(140,255,102,0.10);
+
+    --blue: #62dcff;
+    --danger: #ff6b6b;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "DM Sans", sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+
+    z-index: -1;
+}
+
+
+.grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 20%,
+            transparent 80%
+        );
+}
+
+
+.glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    opacity: 0.12;
+}
+
+
+.glow-one {
+    background: var(--green);
+
+    top: -250px;
+    left: -200px;
+}
+
+
+.glow-two {
+    background: var(--blue);
+
+    right: -250px;
+    bottom: -250px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    border-bottom: 1px solid var(--line);
+
+    background: rgba(7,9,13,0.55);
+
+    backdrop-filter: blur(20px);
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.brand-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--green);
+
+    color: #071006;
+
+    border-radius: 9px;
+
+    font-weight: 800;
+}
+
+
+.back-login {
+    color: var(--muted);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.25s;
+}
+
+
+.back-login:hover {
+    color: var(--text);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.register-container {
+    width: min(1180px, 92%);
+
+    margin: 55px auto 80px;
+
+    display: grid;
+
+    grid-template-columns: 0.9fr 1.1fr;
+
+    gap: 90px;
+
+    align-items: center;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.intro {
+    padding-bottom: 20px;
+}
+
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--green);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 22px;
+}
+
+
+.eyebrow span {
+    width: 7px;
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 15px var(--green);
+}
+
+
+.intro h1 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(48px, 5vw, 72px);
+
+    line-height: 0.98;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 26px;
+}
+
+
+.intro h1 span {
+    color: var(--green);
+}
+
+
+.intro > p {
+    max-width: 460px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    margin-bottom: 45px;
+}
+
+
+/* =========================
+   BENEFITS
+========================= */
+
+.benefits {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0;
+
+    max-width: 430px;
+}
+
+
+.benefit {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.benefit:first-child {
+    border-top: 1px solid var(--line);
+}
+
+
+.benefit-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(140,255,102,0.25);
+
+    color: var(--green);
+
+    border-radius: 10px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.benefit strong {
+    display: block;
+
+    font-size: 14px;
+
+    margin-bottom: 3px;
+}
+
+
+.benefit small {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   REGISTER CARD
+========================= */
+
+.register-card {
+    width: 100%;
+
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 24px;
+
+    padding: 38px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.35),
+        inset 0 1px rgba(255,255,255,0.03);
+
+    backdrop-filter: blur(25px);
+}
+
+
+.card-heading {
+    margin-bottom: 28px;
+}
+
+
+.mini-label {
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.card-heading h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 30px;
+
+    margin: 7px 0 7px;
+}
+
+
+.card-heading p {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   ROLE SELECTION
+========================= */
+
+.role-section > label {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+
+.roles {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 25px;
+}
+
+
+.role {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px;
+
+    border: 1px solid var(--line);
+
+    background: rgba(255,255,255,0.025);
+
+    border-radius: 12px;
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: 0.25s;
+}
+
+
+.role:hover {
+    border-color: rgba(140,255,102,0.35);
+}
+
+
+.role.active {
+    background: var(--green-soft);
+
+    border-color: rgba(140,255,102,0.55);
+}
+
+
+.role-icon {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.05);
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+.role.active .role-icon {
+    background: var(--green);
+
+    color: #071006;
+}
+
+
+.role-info strong {
+    display: block;
+
+    font-size: 12px;
+
+    margin-bottom: 2px;
+}
+
+
+.role-info small {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+.check {
+    position: absolute;
+
+    right: 9px;
+
+    top: 9px;
+
+    color: var(--green);
+
+    font-size: 12px;
+
+    opacity: 0;
+}
+
+
+.role.active .check {
+    opacity: 1;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+.field {
+    margin-bottom: 17px;
+}
+
+
+.field label {
+    display: block;
+
+    color: #b9c0ca;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+
+.field input {
+    width: 100%;
+
+    height: 47px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.035);
+
+    color: var(--text);
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+
+.field input::placeholder {
+    color: #535d6c;
+}
+
+
+.field input:focus {
+    border-color: rgba(140,255,102,0.6);
+
+    background: rgba(140,255,102,0.025);
+
+    box-shadow: 0 0 0 3px rgba(140,255,102,0.06);
+}
+
+
+/* =========================
+   PASSWORD
+========================= */
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.password-wrapper input {
+    padding-right: 60px;
+}
+
+
+.password-wrapper button {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: none;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+.password-wrapper button:hover {
+    color: var(--green);
+}
+
+
+.password-strength {
+    margin-top: 7px;
+}
+
+
+.strength-bar {
+    width: 100%;
+    height: 3px;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.07);
+
+    overflow: hidden;
+
+    margin-bottom: 5px;
+}
+
+
+.strength-bar span {
+    display: block;
+
+    height: 100%;
+
+    width: 0;
+
+    border-radius: inherit;
+
+    transition: 0.3s;
+}
+
+
+.password-strength small {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+    display: block;
+
+    color: var(--danger);
+
+    font-size: 10px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================
+   TERMS
+========================= */
+
+.terms {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    cursor: pointer;
+
+    margin: 4px 0 20px;
+}
+
+
+.terms input {
+    display: none;
+}
+
+
+.custom-check {
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--line);
+
+    border-radius: 4px;
+
+    margin-top: 1px;
+
+    position: relative;
+
+    transition: 0.2s;
+}
+
+
+.terms input:checked + .custom-check {
+    background: var(--green);
+
+    border-color: var(--green);
+}
+
+
+.terms input:checked + .custom-check::after {
+    content: "✓";
+
+    position: absolute;
+
+    left: 3px;
+    top: -1px;
+
+    color: #071006;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.terms a {
+    color: var(--text);
+
+    text-decoration: underline;
+
+    text-underline-offset: 2px;
+}
+
+
+/* =========================
+   REGISTER BUTTON
+========================= */
+
+.register-button {
+    width: 100%;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 17px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: var(--green);
+
+    color: #071006;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        opacity 0.2s;
+}
+
+
+.register-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 30px rgba(140,255,102,0.18);
+}
+
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+
+.button-arrow {
+    font-size: 20px;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 25px 0 17px;
+
+    color: #505967;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background: var(--line);
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-text {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.login-text a {
+    color: var(--green);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    margin-left: 3px;
+}
+
+
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+.secure {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    color: #687282;
+
+    font-size: 10px;
+
+    margin-top: 20px;
+}
+
+
+.secure span {
+    color: var(--green);
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .register-container {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+        max-width: 600px;
+
+        margin-top: 40px;
+    }
+
+
+    .intro {
+        text-align: center;
+    }
+
+
+    .intro > p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .benefits {
+        margin: auto;
+
+        text-align: left;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: 70px;
+
+        padding: 0 5%;
+    }
+
+
+    .register-container {
+        width: 92%;
+
+        margin-top: 30px;
+    }
+
+
+    .intro h1 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .intro > p {
+        font-size: 14px;
+    }
+
+
+    .register-card {
+        padding: 25px 20px;
+
+        border-radius: 19px;
+    }
+
+
+    .roles {
+        grid-template-columns: 1fr;
+    }
+
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+
+    .back-login {
+        font-size: 12px;
+    }
+}
