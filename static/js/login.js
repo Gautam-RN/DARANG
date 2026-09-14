@@ -43,7 +43,7 @@ roles.forEach(role => {
         const names = {
             student: "Student",
             industry: "Industry",
-            academician: "Academician",
+            faculty: "Faculty",
             institution: "Institution"
         };
 
@@ -119,8 +119,8 @@ loginForm.addEventListener("submit", (event) => {
         industry:
             "/industry",
 
-        academician:
-            "/academician",
+        faculty:
+            "/faculty",
 
         institution:
             "/institution"

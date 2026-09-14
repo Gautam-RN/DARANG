@@ -26,9 +26,9 @@ def faculty():
 def industry():
     return render_template("industry.html")
 
-@app.route("/instituition")
-def instituition():
-    return render_template("instituition.html")
+@app.route("/institution")
+def institution():
+    return render_template("institution.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
