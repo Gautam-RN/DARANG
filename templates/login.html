@@ -96,94 +96,11 @@
 
             <div class="card-heading">
                 <span class="mini-label">SIGN IN</span>
-
                 <h2>Welcome back.</h2>
-
-                <p>
-                    Select your role to continue to EduSathi.
-                </p>
             </div>
-
-
-            <!-- Role selection -->
-            <div class="role-section">
-
-                <label>CONTINUE AS</label>
-
-                <div class="roles">
-
-                    <button class="role active"
-                            data-role="student">
-
-                        <span class="role-icon">ST</span>
-
-                        <span class="role-info">
-                            <strong>Student</strong>
-                            <small>Learn & grow</small>
-                        </span>
-
-                        <span class="check">✓</span>
-
-                    </button>
-
-
-                    <button class="role"
-                            data-role="industry">
-
-                        <span class="role-icon">ID</span>
-
-                        <span class="role-info">
-                            <strong>Industry</strong>
-                            <small>Find talent</small>
-                        </span>
-
-                        <span class="check">✓</span>
-
-                    </button>
-
-
-                    <button class="role"
-                            data-role="faculty">
-
-                        <span class="role-icon">FC</span>
-
-                        <span class="role-info">
-                            <strong>Faculty</strong>
-                            <small>Teach & collaborate</small>
-                        </span>
-
-                        <span class="check">✓</span>
-
-                    </button>
-
-
-                    <button class="role"
-                            data-role="institution">
-
-                        <span class="role-icon">IN</span>
-
-                        <span class="role-info">
-                            <strong>Institution</strong>
-                            <small>Manage & analyse</small>
-                        </span>
-
-                        <span class="check">✓</span>
-
-                    </button>
-
-                </div>
-
-            </div>
-
 
             <!-- Login form -->
             <form id="loginForm">
-
-                <input type="hidden"
-                       id="selectedRole"
-                       name="role"
-                       value="student">
-
 
                 <div class="field">
 
@@ -257,11 +174,10 @@
 
                 </div>
 
-
                 <button type="submit"
                         class="login-button">
 
-                    <span>Continue as Student</span>
+                    <span id="buttonText">Continue as Student</span>
 
                     <span class="button-arrow">↗</span>
 
@@ -279,7 +195,7 @@
 
                 Don't have an account?
 
-                <a href="\register">
+                <a href="/register">
                     Create one
                 </a>
 

@@ -1,5 +1,11 @@
-// EduSathi registration interactions
+// ==========================================
+// EDU SATHI REGISTRATION
+// ==========================================
 
+
+// Elements
+const registerForm =
+    document.getElementById("registerForm");
 
 const roles =
     document.querySelectorAll(".role");
@@ -19,67 +25,58 @@ const confirmPassword =
 const togglePassword =
     document.getElementById("togglePassword");
 
-const registerForm =
-    document.getElementById("registerForm");
-
-const strengthBar =
-    document.querySelector(".strength-bar span");
+const passwordError =
+    document.getElementById("passwordError");
 
 const strengthText =
     document.getElementById("strengthText");
 
-const passwordError =
-    document.getElementById("passwordError");
+const strengthBar =
+    document.querySelector(".strength-bar span");
 
 
-// ============================
+// ==========================================
 // ROLE SELECTION
-// ============================
+// ==========================================
 
 roles.forEach(role => {
 
     role.addEventListener("click", () => {
 
+        // Remove active state
         roles.forEach(item => {
             item.classList.remove("active");
         });
 
+        // Add active state
         role.classList.add("active");
 
-        const roleName =
+        // Get selected role
+        const roleValue =
             role.dataset.role;
 
-        selectedRole.value =
-            roleName;
+        // Store selected role
+        selectedRole.value = roleValue;
 
+        // Update button text
 
-        const names = {
-
-            student:
-                "Student",
-
-            industry:
-                "Industry",
-
-            academician:
-                "Academician",
-
-            institution:
-                "Institution"
+        const roleNames = {
+            ST: "Student",
+            FC: "Faculty",
+            IN: "Institution",
+            ID: "Industry"
         };
 
-
         buttonText.textContent =
-            `Create ${names[roleName]} Account`;
-
+            `Create ${roleNames[roleValue]} Account`;
     });
 
 });
 
 
-// ============================
+// ==========================================
 // SHOW / HIDE PASSWORD
-// ============================
+// ==========================================
 
 togglePassword.addEventListener("click", () => {
 
@@ -87,32 +84,27 @@ togglePassword.addEventListener("click", () => {
 
         password.type = "text";
 
-        togglePassword.textContent =
-            "Hide";
+        togglePassword.textContent = "Hide";
 
     } else {
 
         password.type = "password";
 
-        togglePassword.textContent =
-            "Show";
-
+        togglePassword.textContent = "Show";
     }
 
 });
 
 
-// ============================
+// ==========================================
 // PASSWORD STRENGTH
-// ============================
+// ==========================================
 
 password.addEventListener("input", () => {
 
-    const value =
-        password.value;
+    const value = password.value;
 
     let strength = 0;
-
 
     if (value.length >= 8) {
         strength++;
@@ -131,127 +123,181 @@ password.addEventListener("input", () => {
     }
 
 
-    const widths = [
-        "0%",
-        "25%",
-        "50%",
-        "75%",
-        "100%"
-    ];
+    if (value.length === 0) {
 
+        strengthText.textContent =
+            "Use at least 8 characters";
 
-    const labels = [
+        strengthBar.style.width = "0%";
 
-        "Use at least 8 characters",
+    }
 
-        "Weak password",
+    else if (strength === 1) {
 
-        "Fair password",
+        strengthText.textContent =
+            "Weak password";
 
-        "Good password",
+        strengthBar.style.width = "25%";
 
-        "Strong password"
-    ];
+    }
 
+    else if (strength === 2) {
 
-    strengthBar.style.width =
-        widths[strength];
+        strengthText.textContent =
+            "Fair password";
 
-    strengthText.textContent =
-        labels[strength];
+        strengthBar.style.width = "50%";
+
+    }
+
+    else if (strength === 3) {
+
+        strengthText.textContent =
+            "Good password";
+
+        strengthBar.style.width = "75%";
+
+    }
+
+    else {
+
+        strengthText.textContent =
+            "Strong password";
+
+        strengthBar.style.width = "100%";
+    }
 
 });
 
 
-// ============================
-// PASSWORD MATCH
-// ============================
+// ==========================================
+// CONFIRM PASSWORD
+// ==========================================
 
 confirmPassword.addEventListener("input", () => {
 
-    if (
-        confirmPassword.value &&
-        confirmPassword.value !== password.value
-    ) {
+    if (confirmPassword.value !== password.value) {
 
         passwordError.textContent =
             "Passwords do not match.";
 
     } else {
 
-        passwordError.textContent =
-            "";
-
+        passwordError.textContent = "";
     }
 
 });
 
 
-// ============================
+// ==========================================
 // FORM SUBMISSION
-// ============================
+// ==========================================
 
-registerForm.addEventListener("submit", (event) => {
+registerForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
 
 
-    const passwordValue =
-        password.value;
+    // Check password
 
-    const confirmValue =
-        confirmPassword.value;
-
-
-    // Password validation
-
-    if (passwordValue !== confirmValue) {
+    if (password.value !== confirmPassword.value) {
 
         passwordError.textContent =
             "Passwords do not match.";
 
         return;
-
     }
 
 
-    if (passwordValue.length < 8) {
+    // Check password length
+
+    if (password.value.length < 8) {
 
         passwordError.textContent =
             "Password must contain at least 8 characters.";
 
         return;
-
     }
 
 
-    const button =
-        document.querySelector(".register-button");
+    // Disable button
 
+    const submitButton =
+        registerForm.querySelector(".register-button");
 
-    button.style.opacity =
-        "0.7";
-
-    button.style.pointerEvents =
-        "none";
-
+    submitButton.disabled = true;
 
     buttonText.textContent =
         "Creating account...";
 
 
-    /*
-        TEMPORARY FRONTEND REGISTRATION
+    // Get form data
 
-        Backend/database integration will
-        be added later.
-    */
+    const formData =
+        new FormData(registerForm);
 
-    setTimeout(() => {
 
-        window.location.href =
-            "/login";
+    try {
 
-    }, 900);
+        const response =
+            await fetch("/auth", {
+                method: "POST",
+                body: formData
+            });
+
+
+        const data =
+            await response.json();
+
+
+        // ==================================
+        // SUCCESS
+        // ==================================
+
+        if (response.ok && data.success) {
+
+            buttonText.textContent =
+                "Account created ✓";
+
+
+            // Redirect to login
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "/login";
+
+            }, 1000);
+
+
+            return;
+        }
+
+
+        // ==================================
+        // ERROR
+        // ==================================
+
+        alert(data.message || "Registration failed.");
+
+        submitButton.disabled = false;
+
+        buttonText.textContent =
+            "Create Account";
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Something went wrong. Please try again."
+        );
+
+        submitButton.disabled = false;
+
+        buttonText.textContent =
+            "Create Account";
+    }
 
 });
