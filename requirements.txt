@@ -1,6 +1,6 @@
 Flask
 gunicorn
-werkzeug.security
+werkzeug
 psycopg2
 dotenv
 os
