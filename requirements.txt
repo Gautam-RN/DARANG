@@ -3,4 +3,3 @@ gunicorn
 werkzeug
 psycopg2
 dotenv
-os
