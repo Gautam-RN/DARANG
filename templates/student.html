@@ -1030,6 +1030,9 @@
 
 <body>
 
+{% set student_name = session.get("full_name", "Student") %}
+{% set student_initial = student_name[0] | upper %}
+
 <!-- ================= SIDEBAR ================= -->
 
 <aside class="sidebar" id="sidebar">
@@ -1088,11 +1091,11 @@
     <div class="sidebar-bottom">
 
         <div class="student-mini">
-            <div class="avatar">J</div>
+            <div class="avatar">{{ student_initial }}</div>
 
             <div>
-                <strong>Jacob</strong>
-                <span>B.Tech ECE • Year 2</span>
+                <strong>{{ student_name }}</strong>
+                <span>Student</span>
             </div>
         </div>
 
@@ -1123,8 +1126,8 @@
             <button class="icon-btn" onclick="notification()">♢</button>
 
             <div class="profile-chip">
-                <div class="avatar">J</div>
-                <span>Jacob</span>
+                <div class="avatar">{{ student_initial }}</div>
+                <span>{{ student_name }}</span>
             </div>
 
         </div>
@@ -1144,7 +1147,7 @@
             <div class="hero">
 
                 <div>
-                    <h1>Welcome back, <span class="gradient">Jacob.</span></h1>
+                    <h1>Welcome back, <span class="gradient">{{ student_name }}.</span></h1>
                     <p>Let's move one step closer to your career goals.</p>
                 </div>
 
